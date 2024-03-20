@@ -41,7 +41,7 @@ body{
 
 .slick-prev:before{
     font-size: 30px !important;
-    right: -40px !important;
+    margin-left: -8px !important;
 }
 
 .ant-slider-rail{

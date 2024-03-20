@@ -13,19 +13,21 @@ import Section8 from './Section8';
 import Section9 from './Section9';
 import Section10 from './Section10';
 import Section11 from './Section11';
+import Section3b from './Section3b';
 
 const Home = () => {
   useEffect(() => {
     window.scrollTo({
       top: 0
     });
-  }, [])
+  }, []);
   return (
     <div className='home'>
         <Section1 />
         <Navbar activeNav={'home'} />
         <Section2 />
         <Section3 />
+        <Section3b />
         <Section4 />
         <Section5 />
         <Section6 />
