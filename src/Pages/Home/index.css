@@ -1,0 +1,487 @@
+.home {
+  background-color: #f3f3f3;
+}
+
+.home .section-1 .search-input-box {
+  padding: 15px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 16px;
+  height: 60px;
+}
+
+.home .section-1 .search-input-box input:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 762px) {
+  .home .section-1 .heading {
+    width: 400px;
+  }
+}
+
+@media screen and (max-width: 762px) {
+  .home .section-1 .heading {
+    width: auto;
+    padding: 0 10px;
+  }
+}
+
+/* =============================Section-2 */
+
+.home .section-2 {
+  margin: 100px 0;
+}
+
+.home .section-2 .slider {
+  display: flex;
+  gap: 50px;
+  width: max-content;
+}
+
+.home .section-2 .slider .box {
+  box-shadow: 20px 20px 50px 0px #d2d2d2, -20px -20px 50px 0px #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  border-radius: 20px;
+  background-color: #f3f3f3;
+  justify-content: end;
+}
+
+.home .section-2 .section-2-box-btn {
+  width: 200px;
+  height: 50px;
+  border-radius: 45px;
+  display: flex;
+  align-items: center;
+  color: var(--main-text-color);
+  box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.08), -10px -10px 20px 0px #fff;
+  background-color: #f9f9f9;
+  justify-content: right;
+}
+
+.home .section-2 .section-2-box-btn .icon {
+  height: 100%;
+  width: 50px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  background-color: #f9f9f9;
+  box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.08) inset,
+    -10px -10px 20px 0px #fff inset;
+}
+
+/* =============================Section-3 */
+
+.home .section-3 {
+  border-radius: 20px;
+  padding: 30px;
+  background-color: #f9f9f9;
+  box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.09), -10px -10px 20px 0px #fff;
+  display: flex;
+}
+
+.home .section-3 .search-box {
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f3f3;
+  box-shadow: -6px -6px 14px rgba(255, 255, 255, 0.7),
+    -6px -6px 10px rgba(255, 255, 255, 0.5),
+    6px 6px 8px rgba(255, 255, 255, 0.075), 6px 6px 10px rgba(0, 0, 0, 0.15);
+  border: 5px solid white;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.home .section-3 .search-box:hover {
+  box-shadow: -2px -2px 6px rgba(255, 255, 255, 0.6),
+    -2px -2px 4px rgba(255, 255, 255, 0.4),
+    2px 2px 2px rgba(255, 255, 255, 0.05), 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.home .section-3 .search-box:active {
+  box-shadow: inset -2px -2px 6px rgba(255, 255, 255, 0.7),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.5),
+    inset 2px 2px 2px rgba(255, 255, 255, 0.075),
+    inset 2px 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.home .section-3 .search-box .search-icon {
+  font-size: 32px;
+  color: var(--main-text-color);
+}
+
+.home .input-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home .input-box .input-search {
+  height: 50px;
+  border-radius: 50px;
+  box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.08) inset,
+    -10px -10px 20px 0px #fff inset;
+  background-color: #f9f9f9;
+  padding: 0 30px;
+  font-size: 15px;
+}
+
+.home .input-box .input-search:focus {
+  outline: none;
+}
+
+.home .input-box .bedroom-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.home .buttons {
+  display: flex;
+  height: 50px;
+  box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.08) inset,
+    -10px -10px 20px 0px #fff inset;
+  align-items: center;
+  border-radius: 50px;
+  justify-content: space-between;
+}
+
+.home .buttons .btn {
+  height: 50px;
+  width: 50px;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--main-text-color);
+  border-radius: 50px;
+  border: 2px solid white;
+  background-color: #f3f3f3;
+  box-shadow: 20px 20px 50px 0px rgba(0, 0, 0, 0.18),
+    20px 20px 50px 0px #fff inset, -20px -20px 50px 0px #cdcdcd inset,
+    20px 20px 50px 0px rgba(255, 255, 255, 0.25) inset;
+}
+
+.home .buttons .btn-disabled {
+  color: #cdcdcd !important;
+}
+
+.home .section-3 .advance-search {
+  padding: 5px 15px;
+  background: #f9f9f9;
+  border: none;
+  border-radius: 40px;
+  height: 55px;
+  color: #444;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  box-shadow: -6px -6px 14px rgba(255, 255, 255, 0.7),
+    -6px -6px 10px rgba(255, 255, 255, 0.5),
+    6px 6px 8px rgba(255, 255, 255, 0.075), 6px 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.home .section-3 .advance-search:hover {
+  box-shadow: -2px -2px 6px rgba(255, 255, 255, 0.6),
+    -2px -2px 4px rgba(255, 255, 255, 0.4),
+    2px 2px 2px rgba(255, 255, 255, 0.05), 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.home .section-3 .advance-search:active {
+  box-shadow: inset -2px -2px 6px rgba(255, 255, 255, 0.7),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.5),
+    inset 2px 2px 2px rgba(255, 255, 255, 0.075),
+    inset 2px 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.home .section-3 .all-inputs .ready-to-move .label {
+  height: 60px;
+  width: 120px;
+  background-color: #ffffff;
+  border-radius: 30px;
+  -webkit-box-shadow: inset 0 0 5px 4px rgba(255, 255, 255, 1),
+    inset 0 0 20px 1px rgba(0, 0, 0, 0.488), 10px 20px 30px rgba(0, 0, 0, 0.096),
+    inset 0 0 0 3px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 5px 4px rgba(255, 255, 255, 1),
+    inset 0 0 20px 1px rgba(0, 0, 0, 0.226), 10px 20px 30px rgba(0, 0, 0, 0.096),
+    inset 0 0 0 3px rgba(0, 0, 0, 0.324);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  -webkit-transition: -webkit-transform 0.4s;
+  transition: -webkit-transform 0.4s;
+  transition: transform 0.4s;
+}
+
+.home .section-3 .all-inputs .ready-to-move .label:hover {
+  -webkit-transform: perspective(100px) rotateX(5deg) rotateY(-5deg);
+  transform: perspective(100px) rotateX(5deg) rotateY(-5deg);
+}
+
+.home .section-3 .all-inputs .ready-to-move #checkbox {
+  display: none;
+}
+
+.home .section-3 .all-inputs .ready-to-move #checkbox:checked ~ .label::before {
+  left: 70px;
+  background-color: var(--main-text-color);
+  background-image: linear-gradient(
+    330deg,
+    var(--main-text-color) 0%,
+    #000000 300%
+  );
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  content: "✔";
+  color: white;
+}
+
+.home .section-3 .all-inputs .ready-to-move .label::before {
+  position: absolute;
+  content: "";
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-image: linear-gradient(
+    130deg,
+    #757272 10%,
+    #ffffff 11%,
+    #726f6f45 62%
+  );
+  left: 10px;
+  box-shadow: -6px -6px 14px rgba(255, 255, 255, 0.7),
+    -6px -6px 10px rgba(255, 255, 255, 0.5),
+    6px 6px 8px rgba(255, 255, 255, 0.075), 6px 6px 10px rgba(0, 0, 0, 0.15);
+  transition: 0.4s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  content: "✔";
+  color: rgb(181, 181, 181);
+}
+
+.home .section-3 .advance-search-inputs .select-box {
+  height: 50px;
+  width: 100%;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--sec-text-color);
+  cursor: pointer;
+}
+
+.home .section-3 .advance-search-inputs .select-box:focus {
+  outline: none;
+}
+
+@media screen and (min-width: 1175px) {
+  .home .section-3 .all-inputs {
+    width: auto;
+  }
+}
+
+/* =============================Section-4 */
+
+.home .section-4 {
+  margin: 100px 0;
+  display: flex;
+}
+
+.section-4 > div {
+  flex-grow: 1;
+  transition: flex-grow 0.3s ease;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.expanded {
+  flex-grow: 2 !important;
+}
+
+/* =============================Section-6 */
+
+.home .section-6 {
+  margin: 100px 0;
+}
+
+.home .section-6 .imgs-box {
+  display: flex;
+  margin-top: 60px;
+}
+
+.home .section-6 .imgs-box > div {
+  border: 10px solid #e0dfdfa4;
+  border-radius: 20px;
+  transition: transform 0.5s ease;
+}
+
+.home .section-6 .imgs-box > div:hover {
+  transform: scale(1.2);
+}
+
+.home .section-6 .imgs-box > div .img {
+  object-position: center;
+  object-fit: cover;
+  height: 100%;
+  border-radius: 10px;
+  width: 100%;
+}
+
+/* =============================Section-7 */
+
+.home .section-7 .content {
+  background-color: rgba(18, 18, 18, 0.85);
+  color: white;
+}
+
+.home .section-7 .img-box img {
+  object-position: center;
+  object-fit: cover;
+  height: 100%;
+}
+
+.home .section-7 .dropdowns .box {
+  min-height: 30px;
+  max-height: max-content;
+  transition: min-height 0.3s ease;
+  /* border-bottom: 1.5px solid var(--sec-text-color); */
+  padding: 7px 0;
+}
+/* .home .section-7 .dropdowns .box-small {
+  height: 70px;
+  border: 1px solid #fdf2f8;
+} */
+.home .section-7 .dropdowns .box .arrow-icon {
+  font-size: 15px;
+  cursor: pointer;
+}
+.home .section-7 .dropdowns .box .arrow-icon-active {
+  transform: rotate(180deg);
+  transition-duration: 0.5s;
+}
+.home .section-7 .dropdowns .box .arrow-icon-inactive {
+  transform: rotate(0deg);
+  transition-duration: 0.5s;
+}
+.home .section-7 .dropdowns .box .arrow-icon:hover {
+  border-radius: 3px;
+}
+
+/* =============================Section-9 */
+
+.home .section-9 {
+  background-image: url("../../assets/img/home-sec-9-img.png");
+  background-position: top;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+  .home .section-9 {
+    background-size: cover;
+  }
+}
+
+/* =============================Section-10 */
+
+.home .section-10 {
+  background-color: white;
+  display: flex;
+}
+
+/* =============================Section-11 */
+
+.home .section-11 {
+  display: grid;
+  grid-template-columns: 55% 45%;
+}
+
+.home .section-11 .content {
+  background-color: #2d2d2d;
+}
+
+.home .section-11 .img img {
+  object-fit: cover;
+  object-position: center;
+  height: 100%;
+}
+
+.home .section-11 .content .input-box {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 70px;
+}
+
+.home .section-11 .content .input-box .input {
+  border-radius: 14px;
+  background: #2d2d2d;
+  box-shadow: 10px 10px 30px 0px rgba(0, 0, 0, 0.45) inset,
+    -10px -10px 30px 0px #2b2b2b inset;
+  padding: 0 20px;
+  color: white;
+  height: 60px;
+  width: 100%;
+}
+
+.home .section-11 .content .input-box .input:focus {
+  outline: none;
+}
+
+.home .section-11 .content .button {
+  padding: 5px 25px !important;
+  background: #2d2d2d;
+  border: none;
+  border-radius: 10px;
+  color: var(--main-text-color);
+  font-size: 17px;
+  font-weight: 600;
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  box-shadow: 10px 10px 30px 0px rgba(0, 0, 0, 0.45),
+    -10px -10px 30px 0px #2b2b2b;
+  height: 60px;
+  margin-top: 30px;
+}
+
+.home .section-11 .content .button:hover {
+  box-shadow: -2px -2px 6px rgba(0, 0, 0, 0.6), -2px -2px 4px rgba(0, 0, 0, 0.4),
+    2px 2px 2px rgba(0, 0, 0, 0.05), 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.home .section-11 .content .button:active {
+  box-shadow: inset -2px -2px 6px rgba(0, 0, 0, 0.7),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 2px rgba(0, 0, 0, 0.075),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.15);
+}
+
+@media screen and (max-width: 768px) {
+  .home .section-11 {
+    display: grid;
+    grid-template-columns: 100%;
+  }
+}

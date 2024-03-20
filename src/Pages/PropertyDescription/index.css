@@ -1,0 +1,121 @@
+.property-description .section-1 .img-box img{
+    object-fit: cover;
+    height: 100%;
+}
+
+
+/* ============================section2 */
+
+.property-description .section-2 .progress-bar{
+    border: 4px solid rgb(252, 251, 251);
+    height: 45px;
+    background-color: linear-gradient(red, yellow);
+    margin: 30px 0;
+    box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.08) inset, -10px -10px 20px 0px #FFF inset;
+}
+
+.property-description .section-2 .progress-bar .inner-bar{
+    background-color: var(--main-text-color);
+    height: 100%;
+}
+
+/* ============================section3 */
+
+.property-description .section-3{
+    background-image: url("../../assets/img/property-description-sec-3-bg.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+}
+
+.property-description .section-3 img{
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 30px;
+}
+
+/* ============================section5 */
+
+.property-description .section-5 .img-box img{
+    border-radius: 30px;
+    height: 100%;
+    z-index: 10;
+    object-fit: cover;
+    object-position: bottom;
+}
+
+.property-description .section-5 .img-selector-box{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.property-description .section-5 .img-selector-box .circle-img{
+    width: 70px;
+    height: 70px;
+    border: 4px solid white;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 20px 20px 50px 0px #D2D2D2, -20px -20px 50px 0px #FFF;
+}
+
+.property-description .section-5 .img-selector-box .active-circle-img{
+    border-radius: 20px;
+    scale: 1.7;
+}
+
+.property-description .section-5 .img-selector-box .circle-img img{
+    height: 100%;
+    border-radius: 50px;
+    object-fit: 100% 100%;
+    object-position: center;
+}
+
+.property-description .section-5 .img-selector-box .active-circle-img img{
+    border-radius: 15px;
+}
+
+.property-description .section-5 .img-selector-box .circle-img:hover{
+    border-radius: 20px;
+    scale: 1.7;
+}
+
+.property-description .section-5 .img-selector-box .circle-img img:hover{
+    border-radius: 15px;
+}
+
+/* ============================section6 */
+
+.property-description .section-6{
+    display: grid;
+}
+
+/* ============================section7 */
+
+.property-description .section-7{
+    background-image: url("../../assets/img/property-description-sec-3-bg.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+}
+
+/* ============================section8 */
+
+.property-description .section-8 .content .buttons{
+    display: flex;
+    gap: 15px;
+    margin-top: 17px;
+}
+
+.property-description .section-8 .content .buttons button{
+    border: 1.5px solid var(--main-text-color);
+    color: var(--main-text-color);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 15px;
+    border-radius: 40px;
+}

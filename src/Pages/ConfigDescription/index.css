@@ -1,0 +1,121 @@
+/* ============================section3 */
+
+.config-description .section-3{
+    background-image: url("../../assets/img/property-description-sec-3-bg.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.config-description .section-3 img{
+    height: 100%;
+    object-fit: 100% 100%;
+    object-position: center;
+    border-radius: 30px;
+}
+
+/* ============================section4 */
+
+.config-description .section-4 .img-box img{
+    border-radius: 30px;
+    height: 100%;
+    z-index: 10;
+    object-fit: cover;
+    object-position: bottom;
+}
+
+.config-description .section-4 .img-selector-box{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.config-description .section-4 .img-selector-box .circle-img{
+    width: 70px;
+    height: 70px;
+    border: 4px solid white;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 20px 20px 50px 0px #D2D2D2, -20px -20px 50px 0px #FFF;
+}
+
+.config-description .section-4 .img-selector-box .active-circle-img{
+    border-radius: 20px;
+    scale: 1.7;
+}
+
+.config-description .section-4 .img-selector-box .circle-img img{
+    height: 100%;
+    border-radius: 50px;
+    object-fit: 100% 100%;
+    object-position: center;
+}
+
+.config-description .section-4 .img-selector-box .active-circle-img img{
+    border-radius: 15px;
+}
+
+.config-description .section-4 .img-selector-box .circle-img:hover{
+    border-radius: 20px;
+    scale: 1.7;
+}
+
+.config-description .section-4 .img-selector-box .circle-img img:hover{
+    border-radius: 15px;
+}
+
+/* ============================section5 */
+
+.config-description .section-5 .price-boxes .box{
+    border-radius: 20px;
+    background: rgba(128, 128, 128, 0.057);
+    box-shadow: 20px 20px 50px 0px #D2D2D2, -20px -20px 50px 0px #FFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    padding: 10px 30px;
+    gap: 15px;
+}
+
+.config-description .section-5 .range-main-box{
+    border-radius: 40px;
+    background: rgba(128, 128, 128, 0.057);
+    box-shadow: 20px 20px 50px 0px #D2D2D2, -20px -20px 50px 0px #FFF;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.config-description .section-5 .range-main-box .range{
+    border-radius: 30px;
+    background: rgba(128, 128, 128, 0.1);
+    box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.096) inset, -10px -10px 20px 0px #f5f5f5 inset;
+    height: 15px;
+    margin-top: 20px;
+}
+
+.config-description .section-5 .range-main-box .ant-slider-rail{
+    display: none !important;
+}
+.config-description .section-5 .range-main-box .ant-slider-track{
+    height: 8px !important;
+    margin-top: 0 !important;
+}
+.config-description .section-5 .range-main-box .ant-slider-handle{
+    background-color: #F3F3F3 !important;
+    box-shadow: 20px 20px 50px 0px rgba(0, 0, 0, 0.151), 20px 20px 50px 0px #edecec inset, -20px -20px 50px 0px #929292 inset, 20px 20px 50px 0px rgba(188, 188, 188, 0.25) inset !important; 
+    height: 40px !important;
+    width: 40px !important;
+    margin-top: -13px;
+}
+
+.config-description .section-5 .range-main-box .line{
+    border: 1px solid #B3B3B3;
+    margin-top: 10px;
+}

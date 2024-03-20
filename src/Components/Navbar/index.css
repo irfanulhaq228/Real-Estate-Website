@@ -1,0 +1,70 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar .menus{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar .menus .menu{
+    font-size: 16px;
+    font-weight: 600;
+    height: 55px;
+    width: 130px;
+    border-radius: 10px;
+    color: var(--sec-text-color);
+}
+
+.navbar .menus .menu-active{
+    box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.09), -10px -10px 20px 0px #FFF;
+    background-color: white;
+    color: var(--main-text-color);
+}
+
+.navbar .menus .menu:hover{
+    box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.09), -10px -10px 20px 0px #FFF;
+    background-color: white;
+    color: var(--main-text-color);
+}
+
+.navbar .menus .menubar{
+    box-shadow: 10px 10px 20px 0px rgba(0, 0, 0, 0.09), -10px -10px 20px 0px #FFF;
+    height: 55px;
+    width: 55px;
+    border-radius: 55px;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
+.navbar .mobile-menus{
+    box-shadow: -6px -6px 14px rgba(255, 255, 255, 0.7),
+    -6px -6px 10px rgba(255, 255, 255, 0.5),
+    6px 6px 8px rgba(255, 255, 255, 0.075), 6px 6px 10px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    border-radius: 15px;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    background-color: rgba(255, 255, 255, 0.79);
+    border: 1px solid var(--main-text-color);
+}
+
+.navbar .mobile-menus button{
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.navbar .mobile-menus button:hover{
+    color: var(--main-text-color);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.navbar .mobile-menus .menu-active{
+    color: var(--main-text-color);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}

@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: "Montserrat", sans-serif;
+    overflow-x: hidden;
+}
+
+:root{
+    --main-text-color: #12B7B6;
+    --main-text-color-blur:rgba(18, 183, 183, 0.128);
+    --sec-text-color: #545454;
+}
+
+
+.slick-next{
+    right: 0 !important;
+    z-index: 999;
+}
+
+.slick-prev{
+    left: 0 !important;
+    z-index: 999;
+}
+
+.slick-prev:before, .slick-next:before{
+    color: black !important;
+    height: 30px !important;
+    width: 30px !important;     
+}
+
+.slick-next:before{
+    font-size: 30px !important;
+    right: -40px !important;
+}
+
+.slick-prev:before{
+    font-size: 30px !important;
+    right: -40px !important;
+}
+
+.ant-slider-rail{
+    height: 98% !important;
+    margin-top: -4px;
+    border-radius: 30px !important;
+}
+
+.ant-slider-track{
+    height: 98% !important;
+    margin-top: -4px !important;
+    border-bottom-left-radius: 30px !important;
+    border-top-left-radius: 30px !important;
+    background-color: var(--main-text-color) !important;
+}
+
+.ant-slider-handle{
+    background-color: #F3F3F3 !important;
+    box-shadow: 20px 20px 50px 0px rgba(0, 0, 0, 0.18), 20px 20px 50px 0px #FFF inset, -20px -20px 50px 0px #CDCDCD inset, 20px 20px 50px 0px rgba(255, 255, 255, 0.25) inset !important;
+    width: 35px !important;
+    height: 35px !important;
+    border-radius: 35px !important;
+}
+
+/* .ant-slider-track + div {
+    height: 30px !important;
+    width: 30px !important;
+    background-color: black !important;
+    margin-left: 100%;
+} */
+
+.ant-slider-handle::after{
+    display: none !important;
+}
