@@ -15,7 +15,7 @@ import Section10 from './Section10';
 import Section11 from './Section11';
 import Section3b from './Section3b';
 
-const Home = () => {
+const Home = ({ setSelectedHome, setFilterHomesList }) => {
   useEffect(() => {
     window.scrollTo({
       top: 0
@@ -27,7 +27,7 @@ const Home = () => {
         <Navbar activeNav={'home'} />
         <Section2 />
         <Section3 />
-        <Section3b />
+        <Section3b setSelectedHome={setSelectedHome} setFilterHomesList={setFilterHomesList} />
         <Section4 />
         <Section5 />
         <Section6 />

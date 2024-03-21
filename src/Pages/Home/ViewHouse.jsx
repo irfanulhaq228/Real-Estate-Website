@@ -3,19 +3,18 @@ import { Modal } from "antd";
 
 import { GoDotFill } from "react-icons/go";
 
-const ViewHouse = ({ viewHouseInfo, setViewHouseInfo, IMAGE_URL, houseInfo }) => {
+const ViewHouse = ({ viewHouseInfo, setViewHouseInfo, IMAGE_URL, houseInfo, setSelectedHome }) => {
     const [viewImage, setViewImage] = useState();
     useEffect(() => {
         setViewImage(houseInfo?.images?.[0])
     }, [houseInfo, viewHouseInfo])
-    console.log(houseInfo);
   return (
     <Modal
-      title="House Detail"
+      title={`${houseInfo?.monthlyPrice ? "For Rental" : "For Sale"} House Detail`}
       style={{ top: 20 }}
       open={viewHouseInfo}
-      onOk={() => setViewHouseInfo(false)}
-      onCancel={() => setViewHouseInfo(false)}
+      onOk={() => {setViewHouseInfo(false); setSelectedHome({})}}
+      onCancel={() => {setViewHouseInfo(false); setSelectedHome({})}}
       width={1150}
       okButtonProps={{ style: { display: "none" } }}
       cancelButtonProps={{
@@ -35,7 +34,14 @@ const ViewHouse = ({ viewHouseInfo, setViewHouseInfo, IMAGE_URL, houseInfo }) =>
         </div>
         <div className="flex lg:justify-between lg:px-[100px]">
             <div>
-                <p className="font-[700] text-[35px]">$ {houseInfo?.monthlyPrice}</p>
+                <p className="font-[700] text-[35px]">$ {houseInfo?.monthlyPrice ? houseInfo?.monthlyPrice : houseInfo?.salePrice}</p>
+                {houseInfo?.advancePayment && (
+                    <p className="mb-1 text-[16px]">
+                        <span>Advance Payment:</span>
+                        {" "}
+                        <span className="font-[700]">$ {houseInfo?.advancePayment}</span>
+                    </p>
+                )}
                 <p className="font-[500]">{houseInfo?.address}</p>
             </div>
             <div className="flex gap-5">
