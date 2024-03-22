@@ -28,6 +28,10 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
 
     const [ allRentalHomes, setAllRentalHomes ] = useState([]);
     const [ allSaleHomes, setAllSaleHomes ] = useState([]);
+    const [ priceFilterRentalHomes, setPriceFilterRentalHomes ] = useState([]);
+    const [ priceFilterSaleHomes, setPriceFilterSaleHomes] = useState([]);
+    const [ allRentalHomesBackup, setAllRentalHomesBackup ] = useState([]);
+    const [ allSaleHomesBackup, setAllSaleHomesBackup ] = useState([]);
 
     const fn_changeListOptions = (value) => {
         setSelectList(value);
@@ -38,11 +42,73 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
         setShowPriceOptions(false);
         if(document.getElementById("minPrice").value !== ""){
             setMinPrice(document.getElementById("minPrice").value);
+        }else{
+            setMinPrice("")
         }
         if(document.getElementById("maxPrice").value !== ""){
             setMaxPrice(document.getElementById("maxPrice").value);
+        }else{
+            setMaxPrice("")
         }
     }
+
+    const fn_applyAccessoriesFilter = () => {
+        setShowBedsOptions(false);
+        setLoader(true);
+        if(bedrooms === "any" && bathrooms === "any"){
+            if(minPrice === "" && maxPrice === ""){
+                setAllRentalHomes(allRentalHomesBackup);
+                setAllSaleHomes(allRentalHomesBackup)
+            }else if(priceFilterRentalHomes?.length !== 0 || priceFilterSaleHomes?.length !== 0){
+                setAllRentalHomes(priceFilterRentalHomes);
+                setAllSaleHomes(priceFilterSaleHomes);
+            }else{
+                setAllRentalHomes(allRentalHomesBackup);
+                setAllSaleHomes(allSaleHomesBackup);
+            }
+        }else if(bedrooms !== "any" && bathrooms === "any"){
+            if(priceFilterRentalHomes?.length !== 0 || priceFilterSaleHomes?.length !== 0){
+                if(minPrice === "" && maxPrice === ""){
+                    setAllRentalHomes(allRentalHomesBackup.filter((item) => parseInt(item?.bedrooms) >= parseInt(bedrooms)));
+                    setAllSaleHomes(allSaleHomesBackup.filter((item) => parseInt(item?.bedrooms) >= parseInt(bedrooms)));
+                }else{
+                    setAllRentalHomes(priceFilterRentalHomes.filter((item) => parseInt(item?.bedrooms) >= parseInt(bedrooms)));
+                    setAllSaleHomes(priceFilterSaleHomes.filter((item) => parseInt(item?.bedrooms) >= parseInt(bedrooms)));
+                }
+            }else{
+                setAllRentalHomes(allRentalHomesBackup.filter((item) => parseInt(item?.bedrooms) >= parseInt(bedrooms)));
+                setAllSaleHomes(allSaleHomesBackup.filter((item) => parseInt(item?.bedrooms) >= parseInt(bedrooms)));
+            }
+        }
+        if(bathrooms !== "any" && bedrooms === "any"){
+            if(priceFilterRentalHomes?.length !== 0 || priceFilterSaleHomes?.length !== 0){
+                if(minPrice === "" && maxPrice === ""){
+                    setAllRentalHomes(allRentalHomesBackup.filter((item) => parseFloat(item?.bathrooms) >= parseFloat(bathrooms)));
+                    setAllSaleHomes(allSaleHomesBackup.filter((item) => parseFloat(item?.bathrooms) >= parseFloat(bathrooms)));
+                }else{
+                    setAllRentalHomes(priceFilterRentalHomes.filter((item) => parseFloat(item?.bathrooms) >= parseFloat(bathrooms)));
+                    setAllSaleHomes(priceFilterSaleHomes.filter((item) => parseFloat(item?.bathrooms) >= parseFloat(bathrooms)));
+                }
+            }else{
+                setAllRentalHomes(allRentalHomesBackup.filter((item) => parseFloat(item?.bathrooms) >= parseFloat(bathrooms)));
+                setAllSaleHomes(allSaleHomesBackup.filter((item) => parseFloat(item?.bathrooms) >= parseFloat(bathrooms)));
+            }
+        }
+        if(bathrooms !== "any" && bedrooms !== "any"){
+            if(priceFilterRentalHomes?.length !== 0 || priceFilterSaleHomes?.length !== 0){
+                if(minPrice === "" && maxPrice === ""){
+                    setAllRentalHomes(allRentalHomesBackup.filter((item) => (parseFloat(item?.bathrooms) >= parseFloat(bathrooms) && parseInt(item?.bedrooms) >= parseInt(bedrooms))));
+                    setAllSaleHomes(allSaleHomesBackup.filter((item) => (parseFloat(item?.bathrooms) >= parseFloat(bathrooms) && parseInt(item?.bedrooms) >= parseInt(bedrooms))));
+                }else{
+                    setAllRentalHomes(priceFilterRentalHomes.filter((item) => (parseFloat(item?.bathrooms) >= parseFloat(bathrooms) && parseInt(item?.bedrooms) >= parseInt(bedrooms))));
+                    setAllSaleHomes(priceFilterSaleHomes.filter((item) => (parseFloat(item?.bathrooms) >= parseFloat(bathrooms) && parseInt(item?.bedrooms) >= parseInt(bedrooms))));
+                }
+            }else{
+                setAllRentalHomes(allRentalHomesBackup.filter((item) => (parseFloat(item?.bathrooms) >= parseFloat(bathrooms) && parseInt(item?.bedrooms) >= parseInt(bedrooms))));
+                setAllSaleHomes(allSaleHomesBackup.filter((item) => (parseFloat(item?.bathrooms) >= parseFloat(bathrooms) && parseInt(item?.bedrooms) >= parseInt(bedrooms))));
+            }
+        }
+    };
 
     const fn_changeHomeType = (value) => {
         setShowHomeType(false);
@@ -63,9 +129,11 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
         const saleHomes = await getSaleHomes();
         if(rentalHomes?.status === 200){
             setAllRentalHomes(rentalHomes?.data?.message);
+            setAllRentalHomesBackup(rentalHomes?.data?.message);
         }
         if(saleHomes?.status === 200){
             setAllSaleHomes(saleHomes?.data?.message);
+            setAllSaleHomesBackup(saleHomes?.data?.message);
         }
     }
 
@@ -89,6 +157,62 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
             }, 500)
         }
     }, [loader]);
+
+    useEffect(() => {
+        if(minPrice !== "" && maxPrice !== ""){
+            setLoader(true);
+            setAllRentalHomes(allRentalHomesBackup.filter((item) => (parseInt(item?.monthlyPrice) >= parseInt(minPrice) && parseInt(item?.monthlyPrice) <= parseInt(maxPrice))));
+            setAllSaleHomes(allSaleHomesBackup.filter((item) => (parseInt(item?.salePrice) >= parseInt(minPrice) && parseInt(item?.salePrice) <= parseInt(maxPrice))));
+            setPriceFilterRentalHomes(allRentalHomesBackup.filter((item) => (parseInt(item?.monthlyPrice) >= parseInt(minPrice) && parseInt(item?.monthlyPrice) <= parseInt(maxPrice))));
+            setPriceFilterSaleHomes(allSaleHomesBackup.filter((item) => (parseInt(item?.salePrice) >= parseInt(minPrice) && parseInt(item?.salePrice) <= parseInt(maxPrice))));
+        }else if(minPrice === "" && maxPrice !== ""){
+            setLoader(true);
+            setAllRentalHomes(allRentalHomesBackup.filter((item) => parseInt(item?.monthlyPrice) <= parseInt(maxPrice)));
+            setAllSaleHomes(allSaleHomesBackup.filter((item) => parseInt(item?.salePrice) <= parseInt(maxPrice)));
+            setPriceFilterRentalHomes(allRentalHomesBackup.filter((item) => parseInt(item?.monthlyPrice) <= parseInt(maxPrice)));
+            setPriceFilterSaleHomes(allSaleHomesBackup.filter((item) => parseInt(item?.salePrice) <= parseInt(maxPrice)));
+        }else if(minPrice !== "" && maxPrice === ""){
+            setLoader(true);
+            setAllRentalHomes(allRentalHomesBackup.filter((item) => parseInt(item?.monthlyPrice) >= parseInt(minPrice)));
+            setAllSaleHomes(allSaleHomesBackup.filter((item) => parseInt(item?.salePrice) >= parseInt(minPrice)));
+            setPriceFilterRentalHomes(allRentalHomesBackup.filter((item) => parseInt(item?.monthlyPrice) >= parseInt(minPrice)));
+            setPriceFilterSaleHomes(allSaleHomesBackup.filter((item) => parseInt(item?.salePrice) >= parseInt(minPrice)));
+        }else{
+            setLoader(true);
+            if(bedrooms !== "any"){
+                setPriceFilterRentalHomes(allRentalHomesBackup?.filter(item => parseInt(item?.bedrooms) >= parseInt(bedrooms)));
+                setPriceFilterSaleHomes(allSaleHomesBackup?.filter(item => parseInt(item?.bedrooms) >= parseInt(bedrooms)));
+            }else{
+                setPriceFilterRentalHomes([]);
+                setPriceFilterSaleHomes([]);
+                fn_getData();
+            }
+        }
+    }, [minPrice, maxPrice]);
+
+    useEffect(() => {
+        setLoader(true);
+        if(minPrice === "" && maxPrice === "" && bedrooms === "any" && bathrooms === "any"){
+            if(selectedHomeType === "all"){
+                setAllRentalHomes(allRentalHomesBackup);
+                setAllSaleHomes(allSaleHomesBackup);
+            }else{
+                setAllRentalHomes(allRentalHomesBackup?.filter(item => item?.property === selectedHomeType))
+                setAllSaleHomesBackup(allSaleHomesBackup?.filter(item => item?.property === selectedHomeType))
+            }
+        }else{
+            if(priceFilterRentalHomes.length !== 0 || priceFilterSaleHomes !== 0){
+                if(selectedHomeType === "all"){
+                    setAllRentalHomes(priceFilterRentalHomes);
+                    setAllSaleHomes(priceFilterSaleHomes);
+                }else{
+                    setAllRentalHomes(priceFilterRentalHomes?.filter(item => item?.property === selectedHomeType));
+                    setAllSaleHomes(priceFilterSaleHomes?.filter(item => item?.property === selectedHomeType));
+                }
+            }
+        }
+    }, [selectedHomeType]);
+
   return (
     <div className='houses-detail'>
         <ViewHouse viewHouseInfo={viewHouseInfo} setViewHouseInfo={setViewHouseInfo} IMAGE_URL={IMAGE_URL} houseInfo={selectedHome} setSelectedHome={setSelectedHome} />
@@ -116,12 +240,12 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
                     )}
                 </div>
                 <div className='relative z-[999]'>
-                    <div className='input w-[150px]' onClick={() => fn_showOptions(setShowPriceOptions, showPriceOptions)}>
+                    <div className='input min-w-[150px]' onClick={() => fn_showOptions(setShowPriceOptions, showPriceOptions)}>
                         <p className='text-[14px]'>
                             {(minPrice !== "" && maxPrice === "") ? `$${minPrice}+`
                                 : (minPrice === "" && maxPrice !== "") ? `Upto $${maxPrice}`
                                     : (minPrice !== "" && maxPrice !== "") ? `$${minPrice} - $${maxPrice}`
-                                        : "Price"
+                                        : "Price - Any"
                             }
                         </p>
                         <p className='text-[17px]'>{showPriceOptions ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}</p>
@@ -150,7 +274,7 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
                         <p className='text-[17px]'>{showBedsOptions ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}</p>
                     </div>
                     {showBedsOptions && (
-                        <div className='input-options w-[400px]'>
+                        <div className='input-options w-[360px]'>
                             <p className='text-[14px] font-[500] mt-2'>Bedrooms</p>
                             <div className='beds-baths-options'>
                                 <p className={bedrooms === "any" && 'active'} onClick={() => setBedrooms("any")}>Any</p>
@@ -170,7 +294,10 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
                                 <p className={bathrooms === "2.5" && 'active'} onClick={() => setBathrooms("2.5")}>2.5+</p>
                                 <p className={bathrooms === "3" && 'active'} onClick={() => setBathrooms("3")}>3+</p>
                                 <p className={bathrooms === "4" && 'active'} onClick={() => setBathrooms("4")}>4+</p>
-                            </div>                        
+                            </div>   
+                            <button className='rounded h-[30px] mt-2 bg-[var(--main-text-color)] text-white text-[14px] font-[600]' onClick={fn_applyAccessoriesFilter}>
+                                Apply
+                            </button>                     
                         </div>
                     )}
                 </div>
