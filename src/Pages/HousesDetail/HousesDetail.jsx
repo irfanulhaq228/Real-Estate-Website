@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
 import "./HousesDetail.css";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Carousel } from "antd";
 import { IMAGE_URL, URL } from '../../URLs';
@@ -7,8 +8,8 @@ import { RotatingLines } from 'react-loader-spinner'
 
 import logo from "../../assets/svg/real-estate-logo.svg";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp, MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank, MdLocationPin, MdOutlineSearch } from "react-icons/md";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import ViewHouse from '../Home/ViewHouse';
-import axios from 'axios';
 
 const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
     const navigate = useNavigate();
@@ -19,6 +20,7 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
     const [ showPriceOptions, setShowPriceOptions ] = useState(false);
     const [ showBedsOptions, setShowBedsOptions ] = useState(false);
     const [ showHomeType, setShowHomeType ] = useState(false);
+    const [ showMore, setShowMore ] = useState(false);
 
     const [ selectedList, setSelectList ] = useState("forRent");
     const [ minPrice, setMinPrice ] = useState("");
@@ -26,15 +28,27 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
     const [ bedrooms, setBedrooms ] = useState("any");
     const [ bathrooms, setBathrooms ] = useState("any");
     const [ selectedHomeType, setSelectedHomeType ] = useState("all");
+    const [ minSqft, setMinSqft ] = useState("any");
+    const [ maxSqft, setMaxSqft ] = useState("any");
+    const [ minLot, setMinLot ] = useState("any");
+    const [ maxLot, setMaxLot ] = useState("any");
 
     const [ allData, setAllData ] = useState([]);
     const [ allFilteredData, setAllFilteredData ] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 9;
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, allFilteredData?.length);
+    const currentItems = allFilteredData.slice(startIndex, endIndex);
+    const hasPrevPage = currentPage > 1;
+    const hasNextPage = currentPage < Math.ceil(allFilteredData.length / itemsPerPage);
 
     const fn_showOptions = (setValue, value) => {
         setShowListOptions(false);
         setShowPriceOptions(false);
         setShowBedsOptions(false);
         setShowHomeType(false);
+        setShowMore(false);
 
         setValue(!value);
     }
@@ -66,7 +80,27 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
     const fn_changeHomeType = (value) => {
         setShowHomeType(false);
         setSelectedHomeType(value);
-    }
+    };
+
+    const fn_applyMoreFilter = () => {
+        setShowMore(false);
+        setMinSqft(document.getElementById("min_value_sqft").value);
+        setMaxSqft( document.getElementById("max_value_sqft").value);
+        setMinLot( document.getElementById("min_value_lot").value);
+        setMaxLot( document.getElementById("max_value_lot").value);
+    };
+
+    const fn_PrevPage = () => {
+        setCurrentPage(prevPage => Math.max(prevPage - 1, 1));
+        setLoader(true);
+        window.scroll({ top: 0});
+    };
+
+    const fn_NextPage = () => {
+        setCurrentPage(prevPage => Math.min(prevPage + 1, Math.ceil(allFilteredData.length / itemsPerPage)));
+        setLoader(true);
+        window.scroll({ top: 0});
+    };
 
     useEffect(() => {
         axios.get(`${URL}/all-homes`).then((res) => {
@@ -77,7 +111,7 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
         }
         if(filterHomesList !== ""){
             setSelectList(filterHomesList);
-        }
+        };
     }, []);
 
     useEffect(() => {
@@ -136,9 +170,22 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
         }else{
             filterByHomeType = filterByBathrooms;
         }
-        setAllFilteredData(filterByHomeType)
-    }, [allData, selectedList, minPrice, maxPrice, bedrooms, bathrooms, selectedHomeType]);
-
+        // filtering by min-sqft
+        var filterByMinSqft = [];
+        if(minSqft !== "any"){
+            filterByMinSqft = filterByHomeType?.filter((item) => item?.property === "appartment" ? parseInt(item?.sizeSqft) >= parseInt(minSqft) : parseInt(item?.lotSqft) >= parseInt(minSqft));
+        }else{
+            filterByMinSqft = filterByHomeType;
+        }
+        // filtering by max-sqft
+        var filterByMaxSqft = [];
+        if(maxSqft !== "any"){
+            filterByMaxSqft = filterByMinSqft?.filter((item) => item?.property === "appartment" ? parseInt(item?.sizeSqft) <= parseInt(maxSqft) : parseInt(item?.lotSqft) <= parseInt(maxSqft));
+        }else{
+            filterByMaxSqft = filterByMinSqft;
+        }
+        setAllFilteredData(filterByMaxSqft);
+    }, [allData, selectedList, minPrice, maxPrice, bedrooms, bathrooms, selectedHomeType, minSqft, maxSqft]);
   return (
     <div className='houses-detail'>
         <ViewHouse viewHouseInfo={viewHouseInfo} setViewHouseInfo={setViewHouseInfo} IMAGE_URL={IMAGE_URL} houseInfo={selectedHome} setSelectedHome={setSelectedHome} />
@@ -255,10 +302,91 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
                     </div>
                     )}
                 </div>
+                <div className='relative z-[999]'>
+                    <div className='input w-[160px]' onClick={() => fn_showOptions(setShowMore, showMore)}>
+                        <p className='text-[14px]'>
+                            More Searches
+                        </p>
+                        <p className='text-[17px]'>{showMore ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}</p>
+                    </div>
+                    {showMore && (
+                        <div className='input-options w-[280px] md:w-[500px] right-0'>
+                            <p className="text-[14px] font-[600]">Square Feet / Acre</p>
+                            <div className="flex justify-between gap-3">
+                                <div className="flex-1">
+                                    <p className="text-[13px]">No. Minimum</p>
+                                    <select className="text-[13px] input w-full" id="min_value_sqft">
+                                        <option value={"any"} selected={minSqft == "any"}>Any</option>
+                                        {Array.from({ length: 29 }, (_, index) => (index + 1) * 250 + 250).map((value, index) => (
+                                            <option key={index} selected={minSqft == value} value={value}>{value} sqft</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className="flex-1">
+                                    <p className="text-[13px]">No. Maximum</p>
+                                    <select className="text-[13px] input w-full" id="max_value_sqft">
+                                        <option value={"any"} selected={maxSqft == "any"}>Any</option>
+                                        {Array.from({ length: 29 }, (_, index) => (index + 1) * 250 + 250).map((value, index) => (
+                                            <option key={index} selected={maxSqft == value} value={value}>{value} sqft</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+                            <p className="text-[14px] font-[600]">Lot Size</p>
+                            <div className="flex justify-between gap-3">
+                                <div className="flex-1">
+                                    <p className="text-[13px]">No. Minimum</p>
+                                    <select className="text-[13px] input w-full" id="min_value_lot">
+                                        <option value={"any"}>Any</option>
+                                        <option value={1000}>1000 sqft</option>
+                                        <option value={2000}>2000 sqft</option>
+                                        <option value={3000}>3000 sqft</option>
+                                        <option value={4000}>4000 sqft</option>
+                                        <option value={5000}>5000 sqft</option>
+                                        <option value={7500}>7500 sqft</option>
+                                        <option value={1/4}>1/4 acre /10,890 sqft</option>
+                                        <option value={1/2}>1/2 acre</option>
+                                        <option value={1}>1 acre</option>
+                                        <option value={2}>2 acre</option>
+                                        <option value={5}>5 acre</option>
+                                        <option value={10}>10 acre</option>
+                                        <option value={20}>20 acre</option>
+                                        <option value={50}>50 acre</option>
+                                        <option value={100}>100 acre</option>
+                                    </select>
+                                </div>
+                                <div className="flex-1">
+                                    <p className="text-[13px]">No. Maximum</p>
+                                    <select className="text-[13px] input w-full" id="max_value_lot">
+                                        <option value={"any"}>Any</option>
+                                        <option value={1000}>1000 sqft</option>
+                                        <option value={2000}>2000 sqft</option>
+                                        <option value={3000}>3000 sqft</option>
+                                        <option value={4000}>4000 sqft</option>
+                                        <option value={5000}>5000 sqft</option>
+                                        <option value={7500}>7500 sqft</option>
+                                        <option value={1/4}>1/4 acre /10,890 sqft</option>
+                                        <option value={1/2}>1/2 acre</option>
+                                        <option value={1}>1 acre</option>
+                                        <option value={2}>2 acre</option>
+                                        <option value={5}>5 acre</option>
+                                        <option value={10}>10 acre</option>
+                                        <option value={20}>20 acre</option>
+                                        <option value={50}>50 acre</option>
+                                        <option value={100}>100 acre</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button className='rounded h-[30px] mt-2 bg-[var(--main-text-color)] text-white text-[14px] font-[600]' onClick={fn_applyMoreFilter}>
+                                Apply
+                            </button>  
+                        </div>
+                    )}
+                </div>
             </div>
             {!loader ? (
                 <div className='houses-list lg:grid-cols-3 gap-5 mx-[13px] md:mx-[30px] lg:mx-[70px] py-10'>
-                {allFilteredData?.length > 0 ? allFilteredData?.map((item, index) => (
+                {currentItems?.length > 0 ? currentItems?.map((item, index) => (
                     <div key={index} className="rounded-[10px] house-boxes sm:h-[330px]" onClick={() => { setSelectedHome(item); setViewHouseInfo(true) }}>
                         <Carousel
                             autoplay={false}
@@ -296,6 +424,10 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
                 )): (
                     <p className='bg-red-200 w-full lg:col-span-3 text-center h-[100px] rounded-[15px] flex items-center justify-center text-[13px]'>No Data Found - Try another Search</p>
                 )}
+                <div className='lg:col-span-3 flex items-center justify-center gap-10 mt-5'>
+                    <p className={`text-[12px] flex gap-1 items-center font-[500] ${hasPrevPage ? 'cursor-pointer hover:underline' : 'cursor-not-allowed text-gray-500'}`} onClick={fn_PrevPage}><IoIosArrowBack className="text-[15px]" />Prev</p>
+                    <p className={`text-[12px] flex gap-1 items-center font-[500] ${hasNextPage ? 'cursor-pointer hover:underline' : 'cursor-not-allowed text-gray-500'}`} onClick={fn_NextPage}>Next<IoIosArrowForward className="text-[15px]" /></p>
+                </div>
             </div>
             ) : (
                 <div className='flex items-center justify-center py-20'>
