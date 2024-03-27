@@ -1,7 +1,7 @@
 import "./HousesDetail.css";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Carousel } from "antd";
 import { IMAGE_URL, URL } from '../../URLs';
 import { RotatingLines } from 'react-loader-spinner'
@@ -22,16 +22,14 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
     const [ showHomeType, setShowHomeType ] = useState(false);
     const [ showMore, setShowMore ] = useState(false);
 
-    const [ selectedList, setSelectList ] = useState("forRent");
-    const [ minPrice, setMinPrice ] = useState("");
-    const [ maxPrice, setMaxPrice ] = useState("");
-    const [ bedrooms, setBedrooms ] = useState("any");
-    const [ bathrooms, setBathrooms ] = useState("any");
-    const [ selectedHomeType, setSelectedHomeType ] = useState("all");
-    const [ minSqft, setMinSqft ] = useState("any");
-    const [ maxSqft, setMaxSqft ] = useState("any");
-    const [ minLot, setMinLot ] = useState("any");
-    const [ maxLot, setMaxLot ] = useState("any");
+    const [selectedList, setSelectList] = useState("forRent");
+    const [minPrice, setMinPrice] = useState("");
+    const [maxPrice, setMaxPrice] = useState("");
+    const [bedrooms, setBedrooms] = useState("any");
+    const [bathrooms, setBathrooms] = useState("any");
+    const [selectedHomeType, setSelectedHomeType] = useState("all");
+    const [minSqft, setMinSqft] = useState("any");
+    const [maxSqft, setMaxSqft] = useState("any");
 
     const [ allData, setAllData ] = useState([]);
     const [ allFilteredData, setAllFilteredData ] = useState([]);
@@ -188,19 +186,19 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
     }, [allData, selectedList, minPrice, maxPrice, bedrooms, bathrooms, selectedHomeType, minSqft, maxSqft]);
   return (
     <div className='houses-detail'>
-        <ViewHouse viewHouseInfo={viewHouseInfo} setViewHouseInfo={setViewHouseInfo} IMAGE_URL={IMAGE_URL} houseInfo={selectedHome} setSelectedHome={setSelectedHome} />
+        <ViewHouse viewHouseInfo={viewHouseInfo} setViewHouseInfo={setViewHouseInfo} IMAGE_URL={IMAGE_URL} houseInfo={selectedHome} setHouseInfo={setSelectedHome} setSelectedHome={setSelectedHome} />
         <div className='houses-detail-nav mx-[13px] md:mx-[30px] lg:mx-[70px]'>
             <img src={logo} className='h-full p-4 cursor-pointer' onClick={() => navigate("/")} />
         </div>
         <div>
-            <div className='search-box mx-[13px] md:mx-[30px] lg:mx-[70px]'>
-                <div className='relative z-[999]'>
+            <div className='search-box flex-col lg:flex-row mx-[13px] md:mx-[30px] lg:mx-[70px]'>
+                <div className='relative'>
                     <div className='input w-[170px]' onClick={() => fn_showOptions(setShowListOptions, showListOptions)}>
                         <p className='text-[14px]'>Homes {selectedList === "forRent" ? "For Rent" : "For Sale"}</p>
                         <p className='text-[17px]'>{showListOptions ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}</p>
                     </div>
                     {showListOptions && (
-                        <div className='input-options w-[170px]'>
+                        <div className='input-options w-[170px] z-20'>
                             <div className='flex items-center gap-3 cursor-pointer' onClick={() => { fn_changeListOptions("forRent"); if(selectedList !== "forRent")setLoader(true) }}>
                                 {selectedList === "forRent" ? <MdOutlineCheckBox className='text-[17px]' /> : <MdOutlineCheckBoxOutlineBlank className='text-[17px]' />}
                                 <p className='text-[14px]'>For Rent</p>
@@ -212,7 +210,7 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
                         </div>
                     )}
                 </div>
-                <div className='relative z-[999]'>
+                <div className='relative'>
                     <div className='input min-w-[150px]' onClick={() => fn_showOptions(setShowPriceOptions, showPriceOptions)}>
                         <p className='text-[14px]'>
                             {(minPrice !== "" && maxPrice === "") ? `$${minPrice}+`
@@ -224,7 +222,7 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
                         <p className='text-[17px]'>{showPriceOptions ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}</p>
                     </div>
                     {showPriceOptions && (
-                        <div className='input-options'>
+                        <div className='input-options z-20'>
                             <div className='flex items-center gap-1'>
                                 <p className='text-[14px] w-[90px]'>Minimum($)</p>
                                 <input id='minPrice' type='number' className='input flex-1' defaultValue={minPrice} />
@@ -239,7 +237,7 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
                         </div>
                     )}
                 </div>
-                <div className='relative z-[999]'>
+                <div className='relative'>
                     <div className='input w-[150px]' onClick={() => fn_showOptions(setShowBedsOptions, showBedsOptions)}>
                         <p className='text-[14px]'>
                             {(bathrooms === "any" && bedrooms === "any") ? "Beds & Baths" : `${bedrooms} bds, ${bathrooms} bts`}
@@ -247,7 +245,7 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
                         <p className='text-[17px]'>{showBedsOptions ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}</p>
                     </div>
                     {showBedsOptions && (
-                        <div className='input-options w-[360px]'>
+                        <div className='input-options w-[360px] z-20'>
                             <p className='text-[14px] font-[500] mt-2'>Bedrooms</p>
                             <div className='beds-baths-options'>
                                 <p className={bedrooms === "any" && 'active'} onClick={() => setBedrooms("any")}>Any</p>
@@ -274,7 +272,7 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
                         </div>
                     )}
                 </div>
-                <div className='relative z-[999]'>
+                <div className='relative'>
                     <div className='input w-[240px]' onClick={() => fn_showOptions(setShowHomeType, showHomeType)}>
                         <p className='text-[14px]'>
                             Home Type - {selectedHomeType === "all" ? "All" : selectedHomeType === "house" ? "Houses" : selectedHomeType === "appartment" ? "Appartments": "Condos"}
@@ -282,7 +280,7 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
                         <p className='text-[17px]'>{showHomeType ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}</p>
                     </div>
                     {showHomeType && (
-                        <div className='input-options w-[240px]'>
+                        <div className='input-options w-[240px] z-20'>
                         <div className='flex items-center gap-3 cursor-pointer' onClick={() => fn_changeHomeType("all")}>
                             {selectedHomeType === "all" ? <MdOutlineCheckBox className='text-[17px]' /> : <MdOutlineCheckBoxOutlineBlank className='text-[17px]' />}
                             <p className='text-[14px]'>All</p>
@@ -302,7 +300,7 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
                     </div>
                     )}
                 </div>
-                <div className='relative z-[999]'>
+                <div className='relative'>
                     <div className='input w-[160px]' onClick={() => fn_showOptions(setShowMore, showMore)}>
                         <p className='text-[14px]'>
                             More Searches
@@ -310,7 +308,7 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
                         <p className='text-[17px]'>{showMore ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}</p>
                     </div>
                     {showMore && (
-                        <div className='input-options w-[280px] md:w-[500px] right-0'>
+                        <div className='input-options w-[280px] md:w-[500px] right-0 z-20'>
                             <p className="text-[14px] font-[600]">Square Feet / Acre</p>
                             <div className="flex justify-between gap-3">
                                 <div className="flex-1">
@@ -385,7 +383,7 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
                 </div>
             </div>
             {!loader ? (
-                <div className='houses-list lg:grid-cols-3 gap-5 mx-[13px] md:mx-[30px] lg:mx-[70px] py-10'>
+                <div className='houses-list grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mx-[13px] md:mx-[30px] lg:mx-[70px] py-10'>
                 {currentItems?.length > 0 ? currentItems?.map((item, index) => (
                     <div key={index} className="rounded-[10px] house-boxes sm:h-[330px]" onClick={() => { setSelectedHome(item); setViewHouseInfo(true) }}>
                         <Carousel
@@ -424,7 +422,7 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
                 )): (
                     <p className='bg-red-200 w-full lg:col-span-3 text-center h-[100px] rounded-[15px] flex items-center justify-center text-[13px]'>No Data Found - Try another Search</p>
                 )}
-                <div className='lg:col-span-3 flex items-center justify-center gap-10 mt-5'>
+                <div className='sm:col-span-2 lg:col-span-3 flex items-center justify-center gap-10 mt-5'>
                     <p className={`text-[12px] flex gap-1 items-center font-[500] ${hasPrevPage ? 'cursor-pointer hover:underline' : 'cursor-not-allowed text-gray-500'}`} onClick={fn_PrevPage}><IoIosArrowBack className="text-[15px]" />Prev</p>
                     <p className={`text-[12px] flex gap-1 items-center font-[500] ${hasNextPage ? 'cursor-pointer hover:underline' : 'cursor-not-allowed text-gray-500'}`} onClick={fn_NextPage}>Next<IoIosArrowForward className="text-[15px]" /></p>
                 </div>
