@@ -1,0 +1,16 @@
+.auth{
+    font-family: "Montserrat", sans-serif;
+}
+
+.auth .input{
+    border: 1px solid rgba(128, 128, 128, 0.443);
+    height: 30px;
+    font-size: 12px;
+    padding: 0 10px;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.auth .input:focus{
+    outline: none;
+}

@@ -1,18 +1,26 @@
 import "./HousesDetail.css";
+import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Carousel } from "antd";
 import { IMAGE_URL, URL } from '../../URLs';
 import { RotatingLines } from 'react-loader-spinner'
 
+import { updateFavouriteHouses } from "../../Features/Features";
+import ViewHouse from '../Home/ViewHouse';
+
 import logo from "../../assets/svg/real-estate-logo.svg";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp, MdOutlineCheckBox, MdOutlineCheckBoxOutlineBlank, MdLocationPin, MdOutlineSearch } from "react-icons/md";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import ViewHouse from '../Home/ViewHouse';
+import { FaHeart, FaRegHeart } from "react-icons/fa";
+import toast from "react-hot-toast";
+import { apiFavouriteHouses } from "../../Api/api";
 
 const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const favouriteHouses = useSelector(state => state.favouriteHouses);
     const [ loader, setLoader ] = useState(true);
     
     const [ viewHouseInfo, setViewHouseInfo ] = useState(false);
@@ -184,6 +192,18 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
         }
         setAllFilteredData(filterByMaxSqft);
     }, [allData, selectedList, minPrice, maxPrice, bedrooms, bathrooms, selectedHomeType, minSqft, maxSqft]);
+
+    const fn_FavouriteHouses = async(id) => {
+        if(favouriteHouses?.find((item) => item == id)){
+            const removeHouse = favouriteHouses?.filter((item) => item !== id);
+            dispatch(updateFavouriteHouses(removeHouse));
+            await apiFavouriteHouses(removeHouse);
+        }else{
+            toast.success("Add to the Favourites")
+            dispatch(updateFavouriteHouses([...favouriteHouses, id]));
+            await apiFavouriteHouses([...favouriteHouses, id]);
+        }
+    };
   return (
     <div className='houses-detail'>
         <ViewHouse viewHouseInfo={viewHouseInfo} setViewHouseInfo={setViewHouseInfo} IMAGE_URL={IMAGE_URL} houseInfo={selectedHome} setHouseInfo={setSelectedHome} setSelectedHome={setSelectedHome} />
@@ -385,38 +405,43 @@ const HousesDetail = ({ selectedHome, filterHomesList, setSelectedHome }) => {
             {!loader ? (
                 <div className='houses-list grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mx-[13px] md:mx-[30px] lg:mx-[70px] py-10'>
                 {currentItems?.length > 0 ? currentItems?.map((item, index) => (
-                    <div key={index} className="rounded-[10px] house-boxes sm:h-[330px]" onClick={() => { setSelectedHome(item); setViewHouseInfo(true) }}>
-                        <Carousel
-                            autoplay={false}
-                            dots={false}
-                        >
-                            <div className="h-[200px]">
-                            <img
-                                src={`${IMAGE_URL}/${item?.images[0]}`}
-                                className="h-[200px] w-full object-cover object-center rounded-[10px]"
-                            />
-                            </div>
-                        </Carousel>
-                        <p className="font-[700] text-[18px] px-3 mt-5">
-                            $ {item?.monthlyPrice ? item?.monthlyPrice : item?.salePrice}
-                        </p>
-                        <p className="flex gap-1 text-[14px] px-3 flex-wrap">
-                            <span className="font-[700]">{item?.bedrooms}</span>
-                            <span>bds</span>
-                            <span>|</span>
-                            <span className="font-[700]">{item?.bathrooms}</span>
-                            <span>ba</span>
-                            <span>|</span>
-                            <span className="font-[700]">
-                                {item?.lotSqft ? item?.lotSqft : item?.sizeSqft}
-                            </span>
-                            <span>sqft.</span>
-                            <span>|</span>
-                            <span>Active</span>
-                        </p>
-                        <p className="text-[14px] flex gap-1 mt-2 px-3">
-                            <MdLocationPin className="text-[20px] ms-[-3px]" />
-                            {item?.address}
+                    <div className="relative">
+                        <div key={index} className="rounded-[10px] house-boxes sm:h-[330px] relative" onClick={() => { setSelectedHome(item); setViewHouseInfo(true) }}>
+                            <Carousel
+                                autoplay={false}
+                                dots={false}
+                            >
+                                <div className="h-[200px]">
+                                <img
+                                    src={`${IMAGE_URL}/${item?.images[0]}`}
+                                    className="h-[200px] w-full object-cover object-center rounded-[10px]"
+                                />
+                                </div>
+                            </Carousel>
+                            <p className="font-[700] text-[18px] px-3 mt-5">
+                                $ {item?.monthlyPrice ? item?.monthlyPrice : item?.salePrice}
+                            </p>
+                            <p className="flex gap-1 text-[14px] px-3 flex-wrap">
+                                <span className="font-[700]">{item?.bedrooms}</span>
+                                <span>bds</span>
+                                <span>|</span>
+                                <span className="font-[700]">{item?.bathrooms}</span>
+                                <span>ba</span>
+                                <span>|</span>
+                                <span className="font-[700]">
+                                    {item?.lotSqft ? item?.lotSqft : item?.sizeSqft}
+                                </span>
+                                <span>sqft.</span>
+                                <span>|</span>
+                                <span>Active</span>
+                            </p>
+                            <p className="text-[14px] flex gap-1 mt-2 px-3">
+                                <MdLocationPin className="text-[20px] ms-[-3px]" />
+                                {item?.address}
+                            </p>
+                        </div>
+                        <p className="absolute top-5 right-5 text-[25px] text-white z-[999] cursor-pointer" onClick={() => fn_FavouriteHouses(item?._id)}>
+                            {favouriteHouses?.find(i => i == item?._id) ? <FaHeart /> : <FaRegHeart />}
                         </p>
                     </div>
                 )): (

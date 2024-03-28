@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+    auth: false,
+    favouriteHouses: [],
     houseListType: "forRent",
     houseMinPrice: "",
     houseMaxPrice: "",
@@ -13,6 +15,12 @@ export const FeaturesSlice = createSlice({
     name: "Features",
     initialState,
     reducers: {
+        updateAuth: (state, action) => {
+            state.auth = action.payload;
+        },
+        updateFavouriteHouses: (state, action) => {
+            state.favouriteHouses = action.payload;
+        },
         updateHouseListType: (state, action) => {
             state.houseListType = action.payload;
         },
@@ -34,6 +42,6 @@ export const FeaturesSlice = createSlice({
     }
 });
 
-export const { updateHouseListType, updateHouseMinPrice, updateHouseMaxPrice, updateHouseBedrooms, updateHouseBathrooms, updateHouseType } = FeaturesSlice.actions;
+export const { updateAuth, updateFavouriteHouses, updateHouseListType, updateHouseMinPrice, updateHouseMaxPrice, updateHouseBedrooms, updateHouseBathrooms, updateHouseType } = FeaturesSlice.actions;
 
 export const featuresReducers = FeaturesSlice.reducer;

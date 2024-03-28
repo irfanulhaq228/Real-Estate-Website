@@ -76,3 +76,15 @@ body{
 .ant-slider-handle::after{
     display: none !important;
 }
+
+.ant-tabs-tab:hover{
+    color: #12B7B6 !important;
+}
+
+:where(.css-dev-only-do-not-override-1k979oh).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn{
+    color: #12B7B6 !important;
+}
+
+.ant-tabs-ink-bar{
+    background-color: #12B7B6 !important;
+}

@@ -1,13 +1,18 @@
-import React, { useState } from "react";
 import "./index.css";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 import { HiBars3 } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
+import Signin from "../Signin/Signin";
+
 
 const Navbar = ({ logo, activeNav }) => {
   const navigate = useNavigate();
+  const auth = useSelector((state) => state?.auth);
+  const [ showSigninModal, setShowSigninModal ] = useState(false);
   const items = [
     {
       label: (
@@ -45,6 +50,7 @@ const Navbar = ({ logo, activeNav }) => {
   const [showMenu, setShowMenus] = useState(false);
   return (
     <div className="navbar px-[13px] md:px-[30px] lg:px-[70px]">
+      { showSigninModal && <Signin showSigninModal={showSigninModal} setShowSigninModal={setShowSigninModal} /> }
       <div>{logo && <img src={logo} width={"80px"} onClick={() => navigate("/")} />}</div>
       <div className="menus gap-[15px] lg:gap-[30px]">
         <button
@@ -88,6 +94,14 @@ const Navbar = ({ logo, activeNav }) => {
         >
           Developers
         </button>
+        {!auth && (
+          <button
+          className={`hidden sm:block menu`}
+          onClick={() => setShowSigninModal(!showSigninModal)}
+        >
+          Sign In
+          </button>
+        )}
         <button
           className="flex sm:hidden menubar"
           onClick={() => setShowMenus(!showMenu)}
@@ -136,6 +150,14 @@ const Navbar = ({ logo, activeNav }) => {
         >
           Developers
         </button>
+        {!auth && (
+          <button
+          className={`menu ${activeNav === "developers" && "menu-active"}`}
+          onClick={() => setShowSigninModal(!showSigninModal)}
+        >
+          Sign In
+          </button>
+        )}
       </div>
     </div>
   );
