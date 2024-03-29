@@ -74,3 +74,32 @@ export const getFavouriteHousesByUser = async() => {
         return error;
     }
 };
+
+export const getFavouriteHousesInfo = async(data) => {
+    try{
+        const result = await axios.post(`${URL}/favourite-houses/info`, { favouriteHouses: data })
+        return result;
+    }catch(error){
+        return error;
+    }
+};
+
+export const editUserInfo = async(data) => {
+    try{
+        const userId = JSON.parse(localStorage.getItem('user'))._id;
+        const result = await axios.post(`${URL}/user/${userId}`, data);
+        return result;
+    }catch(error){
+        return error;
+    }
+};
+
+export const getUserById = async() => {
+    try{
+        const userId = JSON.parse(localStorage.getItem('user'))._id;
+        const result = await axios.get(`${URL}/user/${userId}`);
+        return result;
+    }catch(error){
+        return error;
+    }
+};

@@ -94,12 +94,21 @@ const Navbar = ({ logo, activeNav }) => {
         >
           Developers
         </button>
-        {!auth && (
+        {!auth ? (
           <button
           className={`hidden sm:block menu`}
           onClick={() => setShowSigninModal(!showSigninModal)}
         >
           Sign In
+          </button>
+        ) : (
+          <button
+            className={`hidden sm:block menu ${
+              activeNav === "account" && "menu-active"
+            }`}
+            onClick={() => navigate("/account")}
+          >
+            Account
           </button>
         )}
         <button
@@ -150,12 +159,21 @@ const Navbar = ({ logo, activeNav }) => {
         >
           Developers
         </button>
-        {!auth && (
+        {!auth ? (
           <button
           className={`menu ${activeNav === "developers" && "menu-active"}`}
           onClick={() => setShowSigninModal(!showSigninModal)}
         >
           Sign In
+          </button>
+        ) : (
+          <button
+            className={`hidden sm:block menu ${
+              activeNav === "account" && "menu-active"
+            }`}
+            onClick={() => navigate("/account")}
+          >
+            Account
           </button>
         )}
       </div>

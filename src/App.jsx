@@ -1,7 +1,7 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import { updateAuth, updateFavouriteHouses } from "./Features/Features";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Outlet } from "react-router-dom";
 import { useCookies } from 'react-cookie';
 
 import Home from "./Pages/Home";
@@ -15,6 +15,10 @@ import LocalityDescription from "./Pages/LocalityDescription";
 import HousesDetail from "./Pages/HousesDetail/HousesDetail";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavouriteHousesByUser } from "./Api/api";
+import Account from "./Pages/Account/Account";
+import Profile from "./Pages/Account/Profile";
+import Wishlist from "./Pages/Account/Wishlist";
+import Reviews from "./Pages/Account/Reviews";
 
 function App() {
   const dispatch = useDispatch();
@@ -29,13 +33,19 @@ function App() {
   useEffect(() => {
     const fn_favHouses = async() => {
       const result = await getFavouriteHousesByUser();
-      console.log(result);
       if(result?.status === 200){
         dispatch(updateFavouriteHouses(result?.data?.message?.housesId));
       }
     };
     fn_favHouses();
   }, [auth]);
+  const Layout = () => {
+    return(
+      <>
+        <Outlet />
+      </>
+    )
+  }
   return (
     <>
       <Routes>
@@ -48,7 +58,12 @@ function App() {
         <Route path="/locality-description" element={<LocalityDescription />} />
         
         {auth ? (
-          <Route path="/houses-details" element={<HousesDetail selectedHome={selectedHome} filterHomesList={filterHomesList} setSelectedHome={setSelectedHome} />} />
+          <>
+            <Route path="/account" element={<Profile />} />
+            <Route path="/account/wishlist" element={<Wishlist />} />
+            <Route path="/account/reviews" element={<Reviews />} />
+            <Route path="/houses-details" element={<HousesDetail selectedHome={selectedHome} filterHomesList={filterHomesList} setSelectedHome={setSelectedHome} />} />
+          </>
         ) : (
           <Route path="/*" element={<Home setSelectedHome={setSelectedHome} setFilterHomesList={setFilterHomesList} />} />
         )}
