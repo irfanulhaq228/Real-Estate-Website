@@ -103,3 +103,21 @@ export const getUserById = async() => {
         return error;
     }
 };
+
+export const contactAgent =async(data) => {
+    try{
+        const result = await axios.post(`${URL}/user/contact-agent`, data);
+        return result;
+    }catch(error){
+        return error
+    }
+};
+
+export const requestToTour =async(data) => {
+    try{
+        const result = await axios.post(`${URL}/user//request-tour`, data);
+        return result;
+    }catch(error){
+        return error
+    }
+};

@@ -15,7 +15,6 @@ import LocalityDescription from "./Pages/LocalityDescription";
 import HousesDetail from "./Pages/HousesDetail/HousesDetail";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavouriteHousesByUser } from "./Api/api";
-import Account from "./Pages/Account/Account";
 import Profile from "./Pages/Account/Profile";
 import Wishlist from "./Pages/Account/Wishlist";
 import Reviews from "./Pages/Account/Reviews";
@@ -39,13 +38,6 @@ function App() {
     };
     fn_favHouses();
   }, [auth]);
-  const Layout = () => {
-    return(
-      <>
-        <Outlet />
-      </>
-    )
-  }
   return (
     <>
       <Routes>
