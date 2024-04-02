@@ -16,7 +16,7 @@ const Navbar = ({ logo, activeNav }) => {
   const items = [
     {
       label: (
-        <p onClick={() => navigate("/property-description")} className={`${activeNav === "property" && "bg-[var(--main-text-color-blur)]"} h-[30px] w-[150px] rounded flex justify-center items-center`}>
+        <p style={{fontFamily: "Montserrat"}} onClick={() => navigate("/property-description")} className={`${activeNav === "property" && "bg-[var(--main-text-color-blur)]"} h-[30px] w-[150px] rounded flex justify-center items-center`}>
           Property Description
         </p>
       ),
@@ -24,7 +24,7 @@ const Navbar = ({ logo, activeNav }) => {
     },
     {
       label: (
-        <p onClick={() => navigate("/config-description")} className={`${activeNav === "config" && "bg-[var(--main-text-color-blur)]"} h-[30px] w-[150px] rounded flex justify-center items-center`}>
+        <p style={{fontFamily: "Montserrat"}} onClick={() => navigate("/config-description")} className={`${activeNav === "config" && "bg-[var(--main-text-color-blur)]"} h-[30px] w-[150px] rounded flex justify-center items-center`}>
           Config Description
         </p>
       ),
@@ -32,7 +32,7 @@ const Navbar = ({ logo, activeNav }) => {
     },
     {
       label: (
-        <p onClick={() => navigate("/agent-description")} className={`${activeNav === "agent" && "bg-[var(--main-text-color-blur)]"} h-[30px] w-[150px] rounded flex justify-center items-center`}>
+        <p style={{fontFamily: "Montserrat"}} onClick={() => navigate("/agent-description")} className={`${activeNav === "agent" && "bg-[var(--main-text-color-blur)]"} h-[30px] w-[150px] rounded flex justify-center items-center`}>
           Agents Description
         </p>
       ),
@@ -40,7 +40,7 @@ const Navbar = ({ logo, activeNav }) => {
     },
     {
       label: (
-        <p onClick={() => navigate("/locality-description")} className={`${activeNav === "locality" && "bg-[var(--main-text-color-blur)]"} h-[30px] w-[150px] rounded flex justify-center items-center`}>
+        <p style={{fontFamily: "Montserrat"}} onClick={() => navigate("/locality-description")} className={`${activeNav === "locality" && "bg-[var(--main-text-color-blur)]"} h-[30px] w-[150px] rounded flex justify-center items-center`}>
           Locality Description
         </p>
       ),
@@ -54,7 +54,7 @@ const Navbar = ({ logo, activeNav }) => {
       <div>{logo && <img src={logo} width={"80px"} onClick={() => navigate("/")} />}</div>
       <div className="menus gap-[15px] lg:gap-[30px]">
         <button
-          className={`hidden sm:block menu ${
+          className={`hidden lg:block menu ${
             activeNav === "home" && "menu-active"
           }`}
           onClick={() => navigate("/")}
@@ -62,7 +62,7 @@ const Navbar = ({ logo, activeNav }) => {
           Home
         </button>
         <button
-          className={`hidden sm:block menu ${
+          className={`hidden lg:block menu ${
             activeNav === "about" && "menu-active"
           }`}
           onClick={() => navigate("/about-us")}
@@ -73,7 +73,7 @@ const Navbar = ({ logo, activeNav }) => {
           menu={{
             items,
           }}
-          className={`hidden sm:flex menu cursor-pointer justify-center ${
+          className={`hidden lg:flex menu cursor-pointer justify-center ${
             activeNav === "property" && "menu-active"
           } ${activeNav === "config" && "menu-active"} ${
             activeNav === "agent" && "menu-active"
@@ -87,7 +87,7 @@ const Navbar = ({ logo, activeNav }) => {
           </a>
         </Dropdown>
         <button
-          className={`hidden sm:block menu ${
+          className={`hidden lg:block menu ${
             activeNav === "developers" && "menu-active"
           }`}
           onClick={() => navigate("/developers")}
@@ -96,14 +96,14 @@ const Navbar = ({ logo, activeNav }) => {
         </button>
         {!auth ? (
           <button
-          className={`hidden sm:block menu`}
+          className={`hidden lg:block menu`}
           onClick={() => setShowSigninModal(!showSigninModal)}
         >
           Sign In
           </button>
         ) : (
           <button
-            className={`hidden sm:block menu ${
+            className={`hidden lg:block menu ${
               activeNav === "account" && "menu-active"
             }`}
             onClick={() => navigate("/account")}
@@ -112,7 +112,7 @@ const Navbar = ({ logo, activeNav }) => {
           </button>
         )}
         <button
-          className="flex sm:hidden menubar"
+          className="flex lg:hidden menubar"
           onClick={() => setShowMenus(!showMenu)}
         >
           <HiBars3 />
@@ -121,7 +121,7 @@ const Navbar = ({ logo, activeNav }) => {
       <div
         className={`${
           showMenu ? "flex" : "hidden"
-        } sm:hidden mobile-menus absolute right-[70px] z-[999]`}
+        } lg:hidden mobile-menus absolute right-[70px] z-[999]`}
       >
         <button
           className={`menu ${activeNav === "home" && "menu-active"}`}

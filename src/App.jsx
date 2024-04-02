@@ -18,6 +18,8 @@ import { getFavouriteHousesByUser } from "./Api/api";
 import Profile from "./Pages/Account/Profile";
 import Wishlist from "./Pages/Account/Wishlist";
 import Reviews from "./Pages/Account/Reviews";
+import SellHome from "./Pages/SellHome/SellHome";
+import FindAgent from "./Pages/FindAgent";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,6 +50,8 @@ function App() {
         <Route path="/config-description" element={<ConfigDescription />} />
         <Route path="/agent-description" element={<AgentDescription />} />
         <Route path="/locality-description" element={<LocalityDescription />} />
+        <Route path="/sell" element={<SellHome />} />
+        <Route path="/find-agent" element={<FindAgent />} />
         
         {auth ? (
           <>

@@ -89,3 +89,12 @@ body{
 .ant-tabs-ink-bar{
     background-color: #12B7B6 !important;
 }
+
+.ant-collapse-header{
+    background-color: #12b7b70e !important;
+    border: none !important;
+    align-items: center;
+    height: 55px;
+    padding-top: 16px !important;
+    border-radius: 5px !important;
+}
