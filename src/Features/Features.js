@@ -8,7 +8,8 @@ const initialState = {
     houseMaxPrice: "",
     houseBedrooms: "any",
     houseBathrooms: "any",
-    houseType: "all"
+    houseType: "all",
+    agentInfo: {}
 };
 
 export const FeaturesSlice = createSlice({
@@ -39,9 +40,12 @@ export const FeaturesSlice = createSlice({
         updateHouseType: (state, action) => {
             state.houseType = action.payload;
         },
+        updateAgentInfo: (state, action) => {
+            state.agentInfo = action.payload;
+        },
     }
 });
 
-export const { updateAuth, updateFavouriteHouses, updateHouseListType, updateHouseMinPrice, updateHouseMaxPrice, updateHouseBedrooms, updateHouseBathrooms, updateHouseType } = FeaturesSlice.actions;
+export const { updateAuth, updateFavouriteHouses, updateHouseListType, updateHouseMinPrice, updateHouseMaxPrice, updateHouseBedrooms, updateHouseBathrooms, updateHouseType, updateAgentInfo } = FeaturesSlice.actions;
 
 export const featuresReducers = FeaturesSlice.reducer;

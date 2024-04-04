@@ -30,14 +30,14 @@ const Navbar = ({ logo, activeNav }) => {
       ),
       key: "2",
     },
-    {
-      label: (
-        <p style={{fontFamily: "Montserrat"}} onClick={() => navigate("/agent-description")} className={`${activeNav === "agent" && "bg-[var(--main-text-color-blur)]"} h-[30px] w-[150px] rounded flex justify-center items-center`}>
-          Agents Description
-        </p>
-      ),
-      key: "3",
-    },
+    // {
+    //   label: (
+    //     <p style={{fontFamily: "Montserrat"}} onClick={() => navigate("/agent-description")} className={`${activeNav === "agent" && "bg-[var(--main-text-color-blur)]"} h-[30px] w-[150px] rounded flex justify-center items-center`}>
+    //       Agents Description
+    //     </p>
+    //   ),
+    //   key: "3",
+    // },
     {
       label: (
         <p style={{fontFamily: "Montserrat"}} onClick={() => navigate("/locality-description")} className={`${activeNav === "locality" && "bg-[var(--main-text-color-blur)]"} h-[30px] w-[150px] rounded flex justify-center items-center`}>
@@ -75,9 +75,7 @@ const Navbar = ({ logo, activeNav }) => {
           }}
           className={`hidden lg:flex menu cursor-pointer justify-center ${
             activeNav === "property" && "menu-active"
-          } ${activeNav === "config" && "menu-active"} ${
-            activeNav === "agent" && "menu-active"
-          } ${activeNav === "locality" && "menu-active"}`}
+          } ${activeNav === "config" && "menu-active"} ${activeNav === "locality" && "menu-active"}`}
         >
           <a onClick={(e) => e.preventDefault()}>
             <Space className="font-[600] cursor-pointer">

@@ -41,7 +41,7 @@ const Section3 = () => {
     ],
   };
   return (
-    <div className="section-3 mx-[13px] md:mx-[30px] lg:mx-[70px] pt-[50px] pb-[80px]">
+    <div className="section-3 mx-[13px] md:mx-[30px] lg:mx-[70px]">
       <div className="slider-container mt-[30px]">
         <Slider {...settings} className="w-[100%]">
           <div>

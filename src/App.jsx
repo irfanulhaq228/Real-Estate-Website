@@ -20,6 +20,7 @@ import Wishlist from "./Pages/Account/Wishlist";
 import Reviews from "./Pages/Account/Reviews";
 import SellHome from "./Pages/SellHome/SellHome";
 import FindAgent from "./Pages/FindAgent";
+import AgentInfo from "./Pages/AgentInfo";
 
 function App() {
   const dispatch = useDispatch();
@@ -48,10 +49,11 @@ function App() {
         <Route path="/developers" element={<Developers />} />
         <Route path="/property-description" element={<PropertyDescription />} />
         <Route path="/config-description" element={<ConfigDescription />} />
-        <Route path="/agent-description" element={<AgentDescription />} />
+        <Route path="/agent-description/:id" element={<AgentDescription setSelectedHome={setSelectedHome} setFilterHomesList={setFilterHomesList} />} />
         <Route path="/locality-description" element={<LocalityDescription />} />
         <Route path="/sell" element={<SellHome />} />
         <Route path="/find-agent" element={<FindAgent />} />
+        {/* <Route path="/find-agent/:id" element={<AgentInfo />} /> */}
         
         {auth ? (
           <>

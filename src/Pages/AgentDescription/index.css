@@ -1,61 +1,91 @@
-.agent-description .section-1 .img-box{
-    background: rgba(128, 128, 128, 0.1);
-    box-shadow: 20px 20px 50px 0px #D2D2D2, -20px -20px 50px 0px #FFF;
-    width: 280px;
-    height: 400px;
-    border-radius: 30px;
+.agent-description .section-1 .img-box {
+  background: rgba(128, 128, 128, 0.1);
+  box-shadow: 20px 20px 50px 0px #d2d2d2, -20px -20px 50px 0px #fff;
+  width: 280px;
+  height: 400px;
+  border-radius: 30px;
 }
 
-.agent-description .section-1 .img-box img{
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
+.agent-description .section-1 .img-box img {
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
 }
 
-.agent-description .section-1 .content-box .box{
-    background: rgba(128, 128, 128, 0.055);
-    box-shadow: 5px 5px 5px 0px #d2d2d273, -5px -5px 5px 0px #ffffff7d;
-    border-radius: 15px;
-    padding-top: 40px;
-    padding-bottom: 10px;
-    height: max-content;
-    width: max-content;
+.agent-description .section-1 .content-box .box {
+  background: rgba(128, 128, 128, 0.055);
+  box-shadow: 5px 5px 5px 0px #d2d2d273, -5px -5px 5px 0px #ffffff7d;
+  border-radius: 15px;
+  padding-top: 40px;
+  padding-bottom: 10px;
+  height: max-content;
+  width: max-content;
 }
 
 /* ============================section4 */
 
-.agent-description .section-4{
-    background-image: url("../../assets/img/property-description-sec-3-bg.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100% 100%;
+.agent-description .section-4 {
+  background-image: url("../../assets/img/property-description-sec-3-bg.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
 }
 
-.agent-description .section-4 .button{
-    padding: 5px 25px !important;
-    background: #2D2D2D;
-    border: none;
-    border-radius: 10px;
-    color: var(--main-text-color);
-    font-size: 17px;
-    font-weight: 600;
-    text-align: center;
-    outline: none;
-    cursor: pointer;
-    transition: 0.2s ease-in-out;
-    box-shadow: 10px 10px 30px 0px rgba(0, 0, 0, 0.45), -10px -10px 30px 0px #2B2B2B;
-    height: 60px;
-    margin-top: 30px;
-  }
+.agent-description .section-4 .button {
+  padding: 5px 25px !important;
+  background: #2d2d2d;
+  border: none;
+  border-radius: 10px;
+  color: var(--main-text-color);
+  font-size: 17px;
+  font-weight: 600;
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  box-shadow: 10px 10px 30px 0px rgba(0, 0, 0, 0.45),
+    -10px -10px 30px 0px #2b2b2b;
+  height: 60px;
+  margin-top: 30px;
+}
 
 .agent-description .section-4 .button:hover {
-    box-shadow: -2px -2px 6px rgba(0, 0, 0, 0.6),
-      -2px -2px 4px rgba(0, 0, 0, 0.4),
-      2px 2px 2px rgba(0, 0, 0, 0.05), 2px 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
+  box-shadow: -2px -2px 6px rgba(0, 0, 0, 0.6), -2px -2px 4px rgba(0, 0, 0, 0.4),
+    2px 2px 2px rgba(0, 0, 0, 0.05), 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
 .agent-description .section-4 .button:active {
-    box-shadow: inset -2px -2px 6px rgba(0, 0, 0, 0.7),
-      inset -2px -2px 4px rgba(0, 0, 0, 0.5),
-      inset 2px 2px 2px rgba(0, 0, 0, 0.075),
-      inset 2px 2px 4px rgba(255, 255, 255, 0.15);
-  }
+  box-shadow: inset -2px -2px 6px rgba(0, 0, 0, 0.7),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 2px rgba(0, 0, 0, 0.075),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.15);
+}
+
+.agent-description .contact-section{
+    position: fixed;
+    right: 0;
+    bottom: -401px;
+    display: flex;
+    justify-content: end;
+    padding: 0 100px;
+    transition: all 0.5s ease;
+    transform: bottom(0px);
+}
+
+.agent-description .contact-section-active{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: end;
+    padding: 0 100px;
+    transition: all 0.5s ease;
+}
+
+.agent-description .contact-section .header .arrow-icon{
+    transform: rotate(180deg);
+    transition: all 0.5s ease;
+}
+
+.agent-description .contact-section .header .arrow-icon-active{
+    transition: all 0.5s ease;
+}

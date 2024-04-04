@@ -21,12 +21,12 @@ body{
 
 .slick-next{
     right: 0 !important;
-    z-index: 999;
+    z-index: 99;
 }
 
 .slick-prev{
     left: 0 !important;
-    z-index: 999;
+    z-index: 99;
 }
 
 .slick-prev:before, .slick-next:before{

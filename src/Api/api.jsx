@@ -121,3 +121,39 @@ export const requestToTour =async(data) => {
         return error
     }
 };
+
+export const searchAgent = async(data) => {
+    try{
+        const result = await axios.post(`${URL}/agent/search-by-user`, data);
+        return result;
+    }catch(error){
+        return error;
+    }
+};
+
+export const getAgentInfoById = async(id) => {
+    try{
+        const result = await axios.get(`${URL}/agent/${id}`);
+        return result;
+    }catch(error){
+        return error;
+    }
+};
+
+export const getAgentRentalHouseById = async(id) => {
+    try{
+        const result = await axios.get(`${URL}/home-for-rent/by-agent/approved/${id}`);
+        return result;
+    }catch(error){
+        return error
+    }
+};
+
+export const getAgentSaleHouseById = async(id) => {
+    try{
+        const result = await axios.get(`${URL}/home-for-sale/by-agent/approved/${id}`);
+        return result;
+    }catch(error){
+        return error
+    }
+};
