@@ -1,0 +1,7 @@
+.review-modal .text-yellow-700{
+    color: var(--main-text-color);
+}
+
+.review-modal .other-reviews .w-6 {
+    width: 1.1rem;
+}

@@ -157,3 +157,12 @@ export const getAgentSaleHouseById = async(id) => {
         return error
     }
 };
+
+export const createReview = async(data) => {
+    try {
+        const result = await axios.post(`${URL}/review`, data);
+        return result;
+    } catch (error) {
+        return error
+    }
+}

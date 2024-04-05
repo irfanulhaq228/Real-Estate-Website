@@ -6,7 +6,7 @@ import tickMark from "../../assets/svg/tick-mark.svg";
 import { TfiWorld } from "react-icons/tfi";
 import { FiPhoneCall } from "react-icons/fi";
 
-const Section4 = ({ agentInfo }) => {
+const Section4 = ({ agentInfo, setActiveContact }) => {
   return (
     <div className="section-4 w-[100%] flex flex-col md:flex-row justify-center items-center p-[20px] mt-[70px] lg:p-[80px] gap-[50px] md:gap-[50px] lg:gap-[80px]">
       <div className="w-full flex justify-center md:justify-end">
@@ -34,7 +34,7 @@ const Section4 = ({ agentInfo }) => {
           </p>
         </div>
         <div className="flex justify-center md:justify-start">
-          <button className="button">Contact Agent</button>
+          <button className="button" onClick={() => setActiveContact(true)}>Contact Agent</button>
         </div>
       </div>
     </div>

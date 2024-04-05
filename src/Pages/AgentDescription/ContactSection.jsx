@@ -6,9 +6,8 @@ import { AgentContactSchema } from "../../Schema/Schema";
 import { contactAgent } from "../../Api/api";
 import toast from "react-hot-toast";
 
-const ContactSection = ({ agentEmail }) => {
+const ContactSection = ({ agentEmail, activeContact, setActiveContact }) => {
   const [loader, setLoader] = useState(false);
-  const [activeContact, setActiveContact] = useState(false);
   const fn_activeContact = () => {
     setActiveContact(!activeContact);
   };

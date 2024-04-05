@@ -51,8 +51,9 @@ const Section2 = () => {
   }, [errorMessage]);
   const fn_clickShowDetails = (id, item) => {
     dispatch(updateAgentInfo(item));
-    navigate(`/agent-description/${id}`)
+    navigate(`/agent-description/${id}`);
   };
+  console.log(searchedData);
   return (
     <div className="section-1 px-[13px] md:px-[30px] lg:px-[70px] py-[80px]">
       <p className="text-[20px] sm:text-[35px] font-[700]">Find an Agent</p>
@@ -133,7 +134,7 @@ const Section2 = () => {
                         {item?.name}
                       </p>
                       <p className="text-[13px]">{item?.phone}</p>
-                      <div className="flex items-center gap-1">
+                      {/* <div className="flex items-center gap-1">
                         {[...Array(Math.floor(item?.stars))].map((_, index) => (
                           <IoMdStar key={index} />
                         ))}
@@ -143,8 +144,8 @@ const Section2 = () => {
                             <IoMdStarOutline key={index} />
                           )
                         )}
-                      </div>
-                      <p className="text-[13px]">
+                      </div> */}
+                      <p className="text-[13px] mt-3">
                         {item?.reviews?.length} reviews
                       </p>
                     </div>
@@ -154,18 +155,48 @@ const Section2 = () => {
                   {item?.reviews?.length === 0 ? (
                     <p>No reviews yet.</p>
                   ) : (
-                    <>
-                      <p className="text-[13px] font-[600] text-[var(--main-text-color)]">
-                        Review 4/2/2024
+                    <React.Fragment>
+                      <p className="text-[13px] font-[600]">
+                        Review{" "}
+                        {new Date(
+                          item?.reviews.slice().reverse()[0].createdAt
+                        ).toLocaleDateString()}
                       </p>
-                      <p className="text-[13px]">
-                        He was 100% involved from start to finish.
+                      <div className="flex items-center gap-1">
+                        {[
+                          ...Array(
+                            Math.floor(
+                              item?.reviews.slice().reverse()[0]?.actualRating
+                            )
+                          ),
+                        ].map((_, index) => (
+                          <IoMdStar className="text-[20px] text-[var(--main-text-color)]" key={index} />
+                        ))}
+                        {item?.reviews.slice().reverse()[0]?.actualRating %
+                          1 !==
+                          0 && <IoMdStarHalf className="text-[20px] text-[var(--main-text-color)]" />}
+                        {[
+                          ...Array(
+                            5 -
+                              Math.ceil(
+                                item?.reviews.slice().reverse()[0]?.actualRating
+                              )
+                          ),
+                        ].map((_, index) => (
+                          <IoMdStarOutline className="text-[20px] text-[var(--main-text-color)]" key={index} />
+                        ))}
+                      </div>
+                      <p className="text-[13px] mt-2">
+                        {item?.reviews.slice().reverse()[0].description}
                       </p>
-                    </>
+                    </React.Fragment>
                   )}
                 </td>
                 <td className="flex justify-end items-center h-[136px] px-3">
-                  <IoIosArrowForward className="text-[var(--main-text-color)] text-[50px] cursor-pointer" onClick={() => fn_clickShowDetails(item?._id, item)} />
+                  <IoIosArrowForward
+                    className="text-[var(--main-text-color)] text-[50px] cursor-pointer"
+                    onClick={() => fn_clickShowDetails(item?._id, item)}
+                  />
                 </td>
               </tr>
             ))}
