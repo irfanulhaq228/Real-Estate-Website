@@ -17,10 +17,12 @@
     "chart.js": "^4.4.2",
     "dotenv": "^16.4.5",
     "formik": "^2.4.5",
+    "google-map-react": "^2.2.1",
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-cookie": "^7.1.0",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^5.0.1",
     "react-loader-spinner": "^6.1.6",
@@ -28,6 +30,7 @@
     "react-router-dom": "^6.22.1",
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
+    "styled-components": "^6.1.8",
     "yup": "^1.4.0"
   },
   "devDependencies": {

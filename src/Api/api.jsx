@@ -165,4 +165,13 @@ export const createReview = async(data) => {
     } catch (error) {
         return error
     }
-}
+};
+
+export const connectWithLocalAgent = async(data) => {
+    try{
+        const result = await axios.post(`${URL}/user/connect-with-local-agent`, data);
+        return result;
+    }catch(error){
+        return error
+    }
+};

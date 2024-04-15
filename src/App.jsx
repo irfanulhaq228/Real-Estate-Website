@@ -21,6 +21,9 @@ import Reviews from "./Pages/Account/Reviews";
 import SellHome from "./Pages/SellHome/SellHome";
 import FindAgent from "./Pages/FindAgent";
 import AgentInfo from "./Pages/AgentInfo";
+import ConnectWithLocalAgent from "./Pages/ConnectWithLocalAgent";
+import SaleByOwner from "./Pages/SaleByOwner/SaleByOwner";
+import OwnerHouseDetails from "./Pages/OwnerHouseDetails/OwnerHouseDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -53,6 +56,9 @@ function App() {
         <Route path="/locality-description" element={<LocalityDescription />} />
         <Route path="/sell" element={<SellHome />} />
         <Route path="/find-agent" element={<FindAgent />} />
+        <Route path="/find-agent/connect-with-local-agent" element={<ConnectWithLocalAgent />} />
+        <Route path="/for-sale-by-owner" element={<SaleByOwner />} />
+        <Route path="/for-sale-by-owner/house-details" element={<OwnerHouseDetails />} />
         {/* <Route path="/find-agent/:id" element={<AgentInfo />} /> */}
         
         {auth ? (
