@@ -15,19 +15,19 @@ const Section3 = () => {
           <p className="w-[70px] h-[70px] flex justify-center items-center">
             <BsHouseGear className="text-[40px] text-[var(--main-text-color)]" />
           </p>
-          <p className="text-[14px] font-[500]">Create a listing at no cost, featuring videos and unlimited photos.</p>
+          <p className="flex-1 text-[14px] font-[500]">Create a listing at no cost, featuring videos and unlimited photos.</p>
         </div>
         <div className="flex items-center gap-3 bg-[var(--main-text-color-blur)] rounded">
           <p className="w-[70px] h-[70px] flex justify-center items-center">
             <AiOutlineSound className="text-[40px] text-[var(--main-text-color)]" />
           </p>
-          <p className="text-[14px] font-[500]">Your house will be showcased on Zillow and Trulia, connecting with the widest audience of online home seekers.</p>
+          <p className="flex-1 text-[14px] font-[500]">Your house will be showcased on Zillow and Trulia, connecting with the widest audience of online home seekers.</p>
         </div>
         <div className="flex items-center gap-3 bg-[var(--main-text-color-blur)] rounded">
           <p className="w-[70px] h-[70px] flex justify-center items-center">
             <IoIosCheckmarkCircleOutline className="text-[40px] text-[var(--main-text-color)]" />
           </p>
-          <p className="text-[14px] font-[500]">Home buyers get immediate email notifications regarding new listings.</p>
+          <p className="flex-1 text-[14px] font-[500]">Home buyers get immediate email notifications regarding new listings.</p>
         </div>
       </div>
     </div>

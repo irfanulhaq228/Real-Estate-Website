@@ -6,9 +6,13 @@ import { ColorRing } from "react-loader-spinner";
 import GoogleMapReact from "google-map-react";
 
 import { MdLocationPin } from "react-icons/md";
+import { useDispatch } from "react-redux";
 
-const MapModal = ({ mapModal, setMapModal }) => {
+import { updateOwnerHomeInfo } from "../../Features/Features";
+
+const MapModal = ({ mapModal, setMapModal, data }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [loader, setLoader] = useState(true);
   const [btnLoader, setBtnLoader] = useState(false);
   const [center, setCenter] = useState({ lat: 40.7128, lng: -74.006 });
@@ -20,12 +24,15 @@ const MapModal = ({ mapModal, setMapModal }) => {
     }
   }, []);
   const handleMapChange = ({ center }) => {
-    console.log("center ===> ", center);
     setCenter(center);
   };
   const fn_useLocation = () => {
     setBtnLoader(true);
-  }
+    dispatch(updateOwnerHomeInfo({ ...data, center }));
+    setTimeout(() => {
+      navigate("/for-sale-by-owner/house-details");
+    }, 2000);
+  };
   return (
     <Modal
       title="Choose Location on Map"
@@ -66,8 +73,13 @@ const MapModal = ({ mapModal, setMapModal }) => {
             </GoogleMapReact>
           </div>
           <button
-            className="mt-3 bg-[var(--main-text-color)] w-[100%] rounded text-white font-[700] text-[14px] h-[35px] hover:scale-[1.005] active:scale-[0.995]"
+            className={`mt-3 ${
+              !btnLoader
+                ? "bg-[var(--main-text-color)] cursor-pointer"
+                : "bg-[var(--main-text-color-blur)] cursor-not-allowed"
+            } w-[100%] rounded text-white font-[700] text-[14px] h-[35px] hover:scale-[1.005] active:scale-[0.995]`}
             onClick={fn_useLocation}
+            disabled={btnLoader}
           >
             {!btnLoader ? "Use this Location" : "Loading..."}
           </button>

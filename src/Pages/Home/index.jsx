@@ -14,6 +14,7 @@ import Section9 from './Section9';
 import Section10 from './Section10';
 import Section11 from './Section11';
 import Section3b from './Section3b';
+import Section6b from './Section6b';
 
 const Home = ({ setSelectedHome, setFilterHomesList }) => {
   useEffect(() => {
@@ -31,6 +32,7 @@ const Home = ({ setSelectedHome, setFilterHomesList }) => {
         <Section4 />
         <Section5 />
         <Section6 />
+        <Section6b setFilterHomesList={setFilterHomesList} />
         <Section7 />
         <Section8 />
         <Section9 />

@@ -1,9 +1,13 @@
 import { useFormik } from "formik";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import toast from "react-hot-toast";
 import styled from "styled-components";
 import { SellByOwnerHomeSchema } from "../../Schema/Schema";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { sellHomeByOwner } from "../../Api/api";
+import { updateOwnerHomeInfo } from "../../Features/Features";
 
 const getColor = (props) => {
   if (props.isDragAccept) {
@@ -36,14 +40,27 @@ const Container = styled.div`
 `;
 
 const Section1 = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const ownerHomeInfo = useSelector((state) => state.ownerHomeInfo);
   const [images, setImages] = useState([]);
+  const [sendImages, setSendImages] = useState([]);
+  useEffect(() => {
+    if (Object.keys(ownerHomeInfo).length === 0) {
+      navigate("/for-sale-by-owner");
+    }
+  }, []);
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.map((file, index) => {
       const reader = new FileReader();
       reader.onload = function (e) {
         setImages((prevState) => [
           ...prevState,
-          { id: index, src: e.target.result },
+          { id: index, src: e.target.result, detail: file },
+        ]);
+        setSendImages((prevState) => [
+          ...prevState,
+          file,
         ]);
       };
       reader.readAsDataURL(file);
@@ -56,16 +73,43 @@ const Section1 = () => {
       homeType: "",
       lotSize: "",
       lotUnit: "sqft",
+      bedrooms: "",
+      bathrooms: "",
       description: "",
       relatedWebsite: "",
       phone: "",
     },
     validationSchema: SellByOwnerHomeSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values, { resetForm }) => {
       if (images?.length === 0) {
         return toast.error("Select Home Image");
       }
-      console.log(values);
+      const params = new FormData();
+      params.append("bathrooms", values?.bathrooms);
+      params.append("bedrooms", values?.bedrooms);
+      params.append("city", ownerHomeInfo?.city);
+      params.append("description", values?.description);
+      params.append("homeType", values?.homeType);
+      for(let i = 0; i < sendImages.length; i++){
+        params.append('images', sendImages[i])
+      }
+      params.append('location', JSON.stringify({ type: "Point", coordinates: [ownerHomeInfo?.center?.lng, ownerHomeInfo?.center?.lat] }));
+      params.append("lotSize", values?.lotSize);
+      params.append("lotUnit", values?.lotUnit);
+      params.append("phone", values?.phone);
+      params.append("price", values?.price);
+      params.append("relatedWebsite", values?.relatedWebsite);
+      params.append("streetAddress", ownerHomeInfo?.streetAddress);
+      params.append("unit", ownerHomeInfo?.unit);
+      params.append("zipCode", ownerHomeInfo?.zipCode);
+      const result = await sellHomeByOwner(params);
+      if(result?.status === 200){
+        toast.success("Data Saved Successfully")
+        dispatch(updateOwnerHomeInfo({}));
+        navigate("/for-sale-by-owner");
+      }else{
+        toast.error("Network Error")
+      }
     },
   });
   return (
@@ -95,7 +139,11 @@ const Section1 = () => {
             onBlur={Formik.handleBlur}
           />
         </div>
-        {Formik.touched.price && Formik.errors.price && <p className="text-[11px] font-[500] mt-[-7px] text-[red]">{Formik.errors.price}</p>}
+        {Formik.touched.price && Formik.errors.price && (
+          <p className="text-[11px] font-[500] mt-[-7px] text-[red]">
+            {Formik.errors.price}
+          </p>
+        )}
       </div>
       {/* Photos / Home Facts */}
       <div className="py-8 flex flex-col gap-8">
@@ -121,7 +169,11 @@ const Section1 = () => {
               <option>Appartment</option>
               <option>Condo</option>
             </select>
-            {Formik.touched.homeType && Formik.errors.homeType && <p className="text-[11px] font-[500] mt-[-4px] text-[red]">{Formik.errors.homeType}</p>}
+            {Formik.touched.homeType && Formik.errors.homeType && (
+              <p className="text-[11px] font-[500] mt-[-4px] text-[red]">
+                {Formik.errors.homeType}
+              </p>
+            )}
           </div>
           <div className="flex gap-5">
             <div className="flex flex-col gap-1 flex-1">
@@ -133,7 +185,11 @@ const Section1 = () => {
                 onChange={Formik.handleChange}
                 onBlur={Formik.handleBlur}
               />
-              {Formik.touched.lotSize && Formik.errors.lotSize && <p className="text-[11px] font-[500] mt-[-4px] text-[red]">{Formik.errors.lotSize}</p>}
+              {Formik.touched.lotSize && Formik.errors.lotSize && (
+                <p className="text-[11px] font-[500] mt-[-4px] text-[red]">
+                  {Formik.errors.lotSize}
+                </p>
+              )}
             </div>
             <div className="flex flex-col gap-1 flex-1">
               <label className="text-[13px] font-[500]">&nbsp;</label>
@@ -146,7 +202,41 @@ const Section1 = () => {
                 <option value={"sqft"}>sqft</option>
                 <option value={"acre"}>acre</option>
               </select>
-              {Formik.touched.lotUnit && Formik.errors.lotUnit && <p className="text-[11px] font-[500] mt-[-4px] text-[red]">{Formik.errors.lotUnit}</p>}
+              {Formik.touched.lotUnit && Formik.errors.lotUnit && (
+                <p className="text-[11px] font-[500] mt-[-4px] text-[red]">
+                  {Formik.errors.lotUnit}
+                </p>
+              )}
+            </div>
+          </div>
+          <div className="flex gap-5">
+            <div className="flex flex-col gap-1 flex-1">
+              <label className="text-[13px] font-[500]">Bedrooms</label>
+              <input
+                className="border border-gray-300 px-2 h-[35px] rounded focus:outline-none text-[13px] font-[500]"
+                name="bedrooms"
+                onChange={Formik.handleChange}
+                onBlur={Formik.handleBlur}
+              />
+              {Formik.touched.bedrooms && Formik.errors.bedrooms && (
+                <p className="text-[11px] font-[500] mt-[-4px] text-[red]">
+                  {Formik.errors.bedrooms}
+                </p>
+              )}
+            </div>
+            <div className="flex flex-col gap-1 flex-1">
+              <label className="text-[13px] font-[500]">Bathrooms</label>
+              <input
+                className="border border-gray-300 px-2 h-[35px] rounded focus:outline-none text-[13px] font-[500]"
+                name="bathrooms"
+                onChange={Formik.handleChange}
+                onBlur={Formik.handleBlur}
+              />
+              {Formik.touched.bathrooms && Formik.errors.bathrooms && (
+                <p className="text-[11px] font-[500] mt-[-4px] text-[red]">
+                  {Formik.errors.bathrooms}
+                </p>
+              )}
             </div>
           </div>
           <div className="flex flex-col gap-1">
@@ -157,7 +247,11 @@ const Section1 = () => {
               onChange={Formik.handleChange}
               onBlur={Formik.handleBlur}
             />
-            {Formik.touched.description && Formik.errors.description && <p className="text-[11px] font-[500] mt-[-4px] text-[red]">{Formik.errors.description}</p>}
+            {Formik.touched.description && Formik.errors.description && (
+              <p className="text-[11px] font-[500] mt-[-4px] text-[red]">
+                {Formik.errors.description}
+              </p>
+            )}
           </div>
         </div>
       </div>
@@ -172,7 +266,11 @@ const Section1 = () => {
           onChange={Formik.handleChange}
           onBlur={Formik.handleBlur}
         />
-        {Formik.touched.relatedWebsite && Formik.errors.relatedWebsite && <p className="text-[11px] font-[500] mt-[-7px] text-[red]">{Formik.errors.relatedWebsite}</p>}
+        {Formik.touched.relatedWebsite && Formik.errors.relatedWebsite && (
+          <p className="text-[11px] font-[500] mt-[-7px] text-[red]">
+            {Formik.errors.relatedWebsite}
+          </p>
+        )}
       </div>
       {/* Contact Information */}
       <div className="py-8 flex flex-col gap-8">
@@ -193,7 +291,11 @@ const Section1 = () => {
               onChange={Formik.handleChange}
               onBlur={Formik.handleBlur}
             />
-            {Formik.touched.phone && Formik.errors.phone && <p className="text-[11px] font-[500] mt-[-4px] text-[red]">{Formik.errors.phone}</p>}
+            {Formik.touched.phone && Formik.errors.phone && (
+              <p className="text-[11px] font-[500] mt-[-4px] text-[red]">
+                {Formik.errors.phone}
+              </p>
+            )}
           </div>
         </div>
       </div>

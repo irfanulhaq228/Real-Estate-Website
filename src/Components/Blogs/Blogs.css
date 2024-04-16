@@ -1,0 +1,33 @@
+.blogs .wrapper{
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.blogs .wrapper {
+    scrollbar-width: thin;
+}
+
+.blogs .wrapper .item{
+    min-width: 280px;
+    height: 450px;
+    background-color: white;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.blogs .wrapper .item:hover{
+    background-color: #12b7b70a;
+}
+
+.blogs .wrapper .item img {
+    transition: transform 0.3s ease;
+}
+
+.blogs .wrapper .item:hover img {
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
+}

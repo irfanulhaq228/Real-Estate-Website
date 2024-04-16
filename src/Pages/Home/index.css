@@ -347,6 +347,27 @@
   width: 100%;
 }
 
+/* =============================Section-6b */
+
+.home .section-6b {
+  margin: 100px 0;
+}
+
+.home .section-6b .imgs-box {
+  display: flex;
+  margin-top: 40px;
+}
+
+.home .section-6b .imgs-box > div {
+  border: 2px solid #e0dfdfa4;
+  border-radius: 7px;
+  transition: transform 0.5s ease;
+}
+
+.home .section-6b .imgs-box > div:hover {
+  transform: scale(1.03);
+}
+
 /* =============================Section-7 */
 
 .home .section-7 .content {

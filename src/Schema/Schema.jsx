@@ -30,6 +30,8 @@ export const SellByOwnerHomeSchema = Yup.object({
   homeType: Yup.string().required("Home Type is required"),
   lotSize: Yup.string().required("Lot Size is required"),
   lotUnit: Yup.string().required("Lot Unit is required"),
+  bedrooms: Yup.number().required("Bedrooms is required"),
+  bathrooms: Yup.number().required("Bathrooms is required"),
   description: Yup.string().required("Description is required"),
   relatedWebsite: Yup.string().required("Related Website is required"),
   phone: Yup.string().required("Phone is required"),

@@ -7,6 +7,7 @@ import { SellByOwnerSchema } from "../../Schema/Schema";
 
 const Section2 = () => {
   const [ mapModal, setMapModal ] = useState(false);
+  const [ data, setData ] = useState({});
   const Formik = useFormik({
     initialValues: {
       streetAddress: "",
@@ -16,12 +17,13 @@ const Section2 = () => {
     },
     validationSchema: SellByOwnerSchema,
     onSubmit: async (values) => {
+      setData(values);
       setMapModal(true);
     },
   });
   return (
     <div className="section-2 px-[13px] md:px-[30px] lg:px-[70px] py-[100px]">
-      {mapModal && <MapModal mapModal={mapModal} setMapModal={setMapModal} />}
+      {mapModal && <MapModal mapModal={mapModal} setMapModal={setMapModal} data={data} />}
       <p className="text-center md:text-start text-[20px] sm:text-[30px] font-[700] capitalize">
         Post a Home For Sale by Owner Listing
       </p>
