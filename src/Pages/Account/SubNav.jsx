@@ -27,6 +27,15 @@ const SubNav = ({ activeSubNav }) => {
         </p>
         <p
           className={`cursor-pointer h-[28px] flex items-center rounded ${
+            activeSubNav === "message" ? "bg-gray-300" : "hover:bg-gray-200"
+          }`}
+          onClick={() => fn_subNavigate("messages")}
+        >
+          <BsDot className="text-[30px]" />
+          Messages
+        </p>
+        <p
+          className={`cursor-pointer h-[28px] flex items-center rounded ${
             activeSubNav === "wishlist" ? "bg-gray-300" : "hover:bg-gray-200"
           }`}
           onClick={() => fn_subNavigate("wishlist")}

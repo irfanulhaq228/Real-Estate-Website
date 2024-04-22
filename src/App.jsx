@@ -24,6 +24,7 @@ import AgentInfo from "./Pages/AgentInfo";
 import ConnectWithLocalAgent from "./Pages/ConnectWithLocalAgent";
 import SaleByOwner from "./Pages/SaleByOwner/SaleByOwner";
 import OwnerHouseDetails from "./Pages/OwnerHouseDetails/OwnerHouseDetails";
+import Messages from "./Pages/Account/Messages";
 
 function App() {
   const dispatch = useDispatch();
@@ -64,6 +65,7 @@ function App() {
         {auth ? (
           <>
             <Route path="/account" element={<Profile />} />
+            <Route path="/account/messages" element={<Messages />} />
             <Route path="/account/wishlist" element={<Wishlist />} />
             <Route path="/account/reviews" element={<Reviews />} />
             <Route path="/houses-details" element={<HousesDetail selectedHome={selectedHome} filterHomesList={filterHomesList} setSelectedHome={setSelectedHome} />} />

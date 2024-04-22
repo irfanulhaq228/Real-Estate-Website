@@ -191,10 +191,40 @@ export const connectWithLocalAgent = async (data) => {
 export const sellHomeByOwner = async (data) => {
   try {
     for (const param of data.entries()) {
-        const [key, value] = param;
-        console.log(`${key} ${value}`);
+      const [key, value] = param;
+      console.log(`${key} ${value}`);
     }
     const result = await axios.post(`${URL}/home-by-owner`, data);
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getAgentContactsByUser = async (id) => {
+  try {
+    const result = await axios.post(`${URL}/message/user-to-agents/${id}`);
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getAgentMessages = async (agentId, userId) => {
+  try {
+    const result = await axios.post(`${URL}/message/user/${userId}`, {
+      agent: agentId,
+    });
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const sendMessage = async (data) => {
+  try {
+    console.log(data);
+    const result = await axios.post(`${URL}/message`, data);
     return result;
   } catch (error) {
     return error;
