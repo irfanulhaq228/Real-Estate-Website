@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import SubNav from "./SubNav";
+import io from "socket.io-client";
 
+import { SOCKET_URL } from "../../URLs";
+
+const socket = io(SOCKET_URL);
+
+import SubNav from "./SubNav";
 import logo from "../../assets/svg/real-estate-logo.svg";
 import Navbar from "../../Components/Navbar";
 import {
@@ -18,6 +23,7 @@ const Messages = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   const textMessage = useRef(null);
   const messagesContainerRef = useRef(null);
+  const [newMessage, setNewMessage] = useState([]);
   useEffect(() => {
     async function fn_get() {
       const result = await getAgentContactsByUser(user?._id);
@@ -28,6 +34,15 @@ const Messages = () => {
       }
     }
     fn_get();
+  }, []);
+  useEffect(() => {
+    socket.on("welcome", (data) => {
+      console.log("MSG FROM SERVER ==== > ", data);
+    });
+
+    return () => {
+      socket.off("connection");
+    };
   }, []);
   useEffect(() => {
     if (messagesContainerRef.current) {
@@ -69,11 +84,34 @@ const Messages = () => {
           time: obj.time,
         },
       ]);
+      textMessage.current.value = "";
+      socket.emit("msg", obj);
+      return () => {
+        socket.off("connection");
+      };
     } else {
       toast.error("Message Sending Failed");
     }
     textMessage.current.value = "";
   };
+  useEffect(() => {
+    const handleMessage = (msg) => {
+      setNewMessage((prev) => [...prev, { ...msg }]);
+    };
+    socket.on("msg", handleMessage);
+    return () => {
+      socket.off("msg", handleMessage);
+    };
+  }, [socket]);
+  useEffect(() => {
+    if (newMessage?.length > 0) {
+      const newMsg = newMessage?.[0];
+      setMessages((prev) => [...prev, { ...newMsg }]);
+      setTimeout(() => {
+        setNewMessage([]);
+      }, 500);
+    }
+  }, [newMessage]);
   return (
     <div className="account pt-[40px] bg-[#F3F3F3]">
       <Navbar activeNav={"account"} logo={logo} />
@@ -120,6 +158,7 @@ const Messages = () => {
                       item?.sender === "agent" ? (
                         <div className="flex justify-start">
                           <p className="bg-black text-white rounded min-w-[170px] max-w-[max-content] p-2">
+                            <p className="border-b border-gray-700 text-[9px] capitalize mb-1">{selectedAgentName}</p>
                             <span>{item?.message}</span>
                             <span className="text-[9px] font-[400] flex items-center gap-2 justify-end">
                               {item?.time}
@@ -129,6 +168,7 @@ const Messages = () => {
                       ) : (
                         <div className="flex justify-end">
                           <p className="bg-gray-500 rounded min-w-[170px] max-w-[max-content] p-2">
+                          <p className="border-b border-gray-700 text-[9px] capitalize mb-1">You</p>
                             <span>{item?.message}</span>
                             <span className="text-[9px] font-[400] flex items-center gap-2 justify-end">
                               {item?.time}
